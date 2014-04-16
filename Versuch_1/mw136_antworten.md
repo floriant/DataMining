@@ -127,43 +127,57 @@ Hierfür werden _Universal Functions_ verwendet.
 _ft020 Edit:_
 ### 1. Wie wird ein Numpy-Array in einen Pandas-Dataframe geschrieben? Wie legt man dabei die Spaltenbezeichnungen und einen Index an?
 **Eingabe**
+
 	numpyArray = np.array([1,2],[3,4],[5,6])
 	df = pd.DataFrame(numpyArray, index=range(3), columns=list(['Clumn A'], ['Column B']) 
+
 **Ausgabe**
-|   Column A  Column B	
-|0         1         2
-|1         3         4
-|2         5         6
+
+	   Column A  Column B	
+	0         1         2
+	1         3         4
+	2         5         6
 
 
 ### 2. Wie kann auf einzelne Spalten, wie auf einzelne Zeilen eines Pandas Dataframes zugegriffen werden?
 **Spalten**
+
 	df['A'] # column name
+
 **Zeilen**
+
 	df[0:1] # slice of row
 
 
 ### 3. Wie können Pandas Dataframes sortiert werden?
+
 	df.sort(columns='A') # sort by column A
 	df.sort_index(axis=0, ascending=False) # sort by axis 0=y-axis 1=x-axis
+
 _flo: möglichweise bei df.sort auch zeilenweise?_
 
 
 ### 4. Wie kann zu einem bestehenden Dataframe eine neue Spalte hinzugefügt werden?
+
 	df['Column Z'] = pd.Series([10,20,30],index=range(3))
+
 Series ist dabei ein passendes Objekt zum Dataframe.
 
 
 ### 5. Wie werden Daten aus einem .csv File in einen Pandas Dataframe geschrieben?
+
 	df.read_csv('source.csv')
+
 Laut dokumentation erzeugt der default von read_csv bereits einen Dataframe mit einfach numerierten Zeilen.
 
 ### 6. Wie wird ein Pandas Dataframe in einem .csv File abgelegt?
-df.to_csv('target.csv')
+
+	df.to_csv('target.csv')
 
 ##Matplotlib:
 _ft020 Edit:_
 ### 1. Wie erzeugt man mit Matplotlib einen Plot, wie er in Abbildung 4 dargestellt ist?
+
 	range = np.arange(0.0,7.0,0.1) # range 0-7 with 0.1 intervals
 	plt.plot(range, np.sin(1*range), 'ro') # x=range, y=np.sin(1*range), ro=red dotted
 	plt.grid(True)
@@ -176,9 +190,12 @@ _ft020 Edit:_
 ### 2. Wie kann man mehrere Graphen in einen Plot eintragen?
 **Option 1**
 In einen Plot mehrere Funktionen eintragen:
+
 	plt.plot(range, np.sin(1*range), 'ro', range, range**2, 'ro')
+
 **Option 2**
 Mehrere Plots hintereinander generieren:
+
 	plt.plot(range, np.sin(1*range), 'ro')
 	plt.plot(range, range**2, 'ro')
 
@@ -189,6 +206,7 @@ Die Funktion plt.subplot kann 3 Parameter aufnehmen:
 - numcols - Gesamtanzahl Spalten
 - fignum - Position der Figur
 **Bsp.:**
+
 	plt.subplot(4,3,1)
 	plt.subplot(4,3,2)
 	plt.subplot(4,3,3)
@@ -197,12 +215,15 @@ Die Funktion plt.subplot kann 3 Parameter aufnehmen:
 	plt.subplot(4,3,10)
 	plt.subplot(4,3,11)
 	plt.subplot(4,3,12)
+
 _Achtung: unter jeden Subplot kommt noch der Plot selbst._
 
 
 ### 4. Wie erzeugt man mit Matplotlib ein Histogram?
 Unter verwendung der plt.hist funktion. 
-*	plt.hist(x, 50, normed=1, facecolor='g', alpha=0.75)
+
+	plt.hist(x, 50, normed=1, facecolor='g', alpha=0.75)
+
 - x - Array aus Werten
 - 50 - Anzahl der Balken
 - normed - Normalisierung True/False
@@ -214,6 +235,7 @@ Unter verwendung der plt.hist funktion.
 	x1 = np.random.normal(0,1,50) # generate random numbers
 	plt.boxplot([x1],vert=False) # plot x1 and set boxplot vertical
 	plt.show()
+
 Boxplot kann noch mit weiteren parametern angepasst werden.
 
 
@@ -230,6 +252,7 @@ _ft020 Edit:_
 4. (optional) Dendogram erstellen.
 
 Bsp. :
+
 	import scipy.cluster.hierarchy as sch
 	import scipy.spatial.distance as ssd
 	import matplotlib.pyplot as plt
