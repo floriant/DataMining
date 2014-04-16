@@ -130,10 +130,10 @@ _ft020 Edit:_
 	numpyArray = np.array([1,2],[3,4],[5,6])
 	df = pd.DataFrame(numpyArray, index=range(3), columns=list(['Clumn A'], ['Column B']) 
 **Ausgabe**
-	   Column A  Column B	
-	0         1         2
-	1         3         4
-	2         5         6
+|   Column A  Column B	
+|0         1         2
+|1         3         4
+|2         5         6
 
 
 ### 2. Wie kann auf einzelne Spalten, wie auf einzelne Zeilen eines Pandas Dataframes zugegriffen werden?
