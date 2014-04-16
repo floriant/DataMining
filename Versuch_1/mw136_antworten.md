@@ -65,68 +65,58 @@ _Achtung:_
 	arr1 = np.array( [1, 17, 23])
 	**@todo**
 
-##2. Wie legt man ein (3,4)-Array mit ausschlieÿlich 0-Einträgen an?
+###2. Wie legt man ein (3,4)-Array mit ausschlieÿlich 0-Einträgen an?
 
 	import numpy as np
 	arr3 = np.zeros( (3, 4) )
 
-##3. Wie ruft man die Anzahl der Dimensionen, die Anzahl der Elemente pro Dimension und den Datentyp der Arrayelemente ab?
+###3. Wie ruft man die Anzahl der Dimensionen, die Anzahl der Elemente pro Dimension und den Datentyp der Arrayelemente ab?
 *	Anzahl Dimensionen: `arr1.ndim`
 *	Anzahl Elemente pro Dimension: `arr1.shape`
 *	Datentyp der Arrayelemente: `arr1.dtype`
 	
-##4. Wie wandelt man ein (3,4)-Array in ein (2,6)-Array um?
+###4. Wie wandelt man ein (3,4)-Array in ein (2,6)-Array um?
 
 	import numpy as np
 	arr1 = np.floor(10*np.random.random((3,4,)))
 	arr1.shape = (2,6)
 	
-##5. Wie transponiert man ein zweidimensionales Array?
+###5. Wie transponiert man ein zweidimensionales Array?
 
 	arr1.transpose()
 
-##6. Wie multipliziert man zwei Arrays elementweise?
+###6. Wie multipliziert man zwei Arrays elementweise?
 
 	arr1 * arr2
 	
-##7. Wie führt man eine Matrixmultiplikation zweier zweidimensionaler Arrays A und B aus? Welche Bedingungen müssen A und B erfüllen, damit überhaupt eine Matrixmultiplikation durchgeführt werden kann?
+###7. Wie führt man eine Matrixmultiplikation zweier zweidimensionaler Arrays A und B aus? Welche Bedingungen müssen A und B erfüllen, damit überhaupt eine Matrixmultiplikation durchgeführt werden kann?
 _A muss gleich viele Zeilen wie B Spalten haben, und umgekehrt.
 
 	arr1=np.floor(10*np.random.random( (2,3) ))
 	arr2=np.floor(10*np.random.random( (3,2) ))
 	arrayA.dot(arrayB)
 
-##8. Wie greift man auf das Element (2,3) in einem (4,4)-Array A zu? Wie greift man auf die erste Spalte, wie auf die erste Zeile dieses Arrays zu?
+###8. Wie greift man auf das Element (2,3) in einem (4,4)-Array A zu? Wie greift man auf die erste Spalte, wie auf die erste Zeile dieses Arrays zu?
 *	Element(2,3): `arr[2,3]`
 *	Erste Spalte: ``
 *	erste Zeile: ``
 
-##9. Wie berechnet man die Quadratwurzel aller Elemente eines Arrays?
+###9. Wie berechnet man die Quadratwurzel aller Elemente eines Arrays?
 Hierfür werden _Universal Functions_ verwendet.  
 `np.sqrt( np.array( [1, 2, 4] ) )` liefert `array([ 1, 1.41421356, 2])`
 	
 
-##10. Wie legt man eine flache Kopie, wie eine tiefe Kopie eines Arrays an?
+###10. Wie legt man eine flache Kopie, wie eine tiefe Kopie eines Arrays an?
 
 	a = np.array( [1, 2, 3] )
 	shallowCopy = a.view()
 	deepCopy = a.copy()
 
 ##Pandas:
-1. Wie wird ein Numpy-Array in einen Pandas-Dataframe geschrieben? 
-Wie legt man dabei die Spaltenbezeichnungen und einen Index an?
-2. Wie kann auf einzelne Spalten, wie auf einzelne Zeilen eines Pandas Dataframes zugegriffen werden?
-3. Wie können Pandas Dataframes sortiert werden?
-4. Wie kann zu einem bestehenden Dataframe eine neue Spalte hinzugefügt werden?
-5. Wie werden Daten aus einem .csv File in einen Pandas Dataframe geschrieben?
-6. Wie wird ein Pandas Dataframe in einem .csv File abgelegt?
+--  
 
 ##Matplotlib:
-###1. Wie erzeugt man mit Matplotlib einen Plot, wie er in Abbildung 4 dargestellt ist?
-###2. Wie kann man mehrere Graphen in einen Plot eintragen?
-###3. Wie erzeugt man mit Matplotlib ein Bild, das 12 Subplots in 3 Zeilen und 4 Spalten geordnet, enthält.
-###4. Wie erzeugt man mit Matplotlib ein Histogramm?
-####5. Wie erzeugt man mit Matplotlib einen Boxplot?
+--  
 
 ##Scipy: Geben Sie kurz die Schritte an, die für die Durchführung eines hierarchischen Clustering mit Scipy notwendig sind.
 Frage versteh ich nicht richtig: Mögliche Antwort: Quantifizierung und Clustering? Danach muss die Anzahl der gewünschten Cluster angegeben werden, damit die passenden Ähnlichkeiten zusammenbleiben.  
