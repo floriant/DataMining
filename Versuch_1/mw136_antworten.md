@@ -246,10 +246,11 @@ Ein Link, der vielleicht weiterhilft [bei so](http://stackoverflow.com/questions
 _marc: ich kuck mir das morgen nochmal an._  
 
 _ft020 Edit:_
-1. Datenset als Liste (auch mehrdimensional) speichern.
-2. Eine Distanzfunktion passen zum gestellten Problem finden.
-3. Werte hierarchisch Clustern.
-4. (optional) Dendogram erstellen.
+
+	1. Datenset als Liste (auch mehrdimensional) speichern.
+	2. Eine Distanzfunktion passen zum gestellten Problem finden.
+	3. Werte hierarchisch Clustern.
+	4. (optional) Dendogram erstellen.
 
 Bsp. :
 
