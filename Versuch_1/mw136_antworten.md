@@ -45,7 +45,6 @@ _Achtung: points hält einen List mit N x N Verknüpfungen der Liste x und der L
 	f2.close()
 
 ###4. Wie hängt man an eine Python-Liste die Elemente einer zweiten Liste an?
-**fehlt noch**  
 
 	arr1 = [1, 2, 3]
 	arr2 = [4, 5, 6]
@@ -56,50 +55,62 @@ Ergebnis:
 	arr1 =[1, 2, 3, 4, 5, 6]
 
 _Achtung:_  
-`arr1.append(arr2)` liefert `[1, 2, 3, [4, 5, 6]` zurück
+`arr1.append(arr2)` liefert `[1, 2, 3, [4, 5, 6]` zurück.  
+
 
 ##Numpy:
 ###1. Nennen Sie zwei verschiedene Möglichkeiten ein Numpy-Array zu erzeugen.
 
 	import numpy as np
-	arr1 = np.array( [1, 17, 23])
-	**@todo**
+	arr1 = np.array( [1, 17, 23] )
+	arr2 = np.arange(5)
+
 
 ###2. Wie legt man ein (3,4)-Array mit ausschlieÿlich 0-Einträgen an?
 
 	import numpy as np
 	arr3 = np.zeros( (3, 4) )
 
+
 ###3. Wie ruft man die Anzahl der Dimensionen, die Anzahl der Elemente pro Dimension und den Datentyp der Arrayelemente ab?
+
 *	Anzahl Dimensionen: `arr1.ndim`
 *	Anzahl Elemente pro Dimension: `arr1.shape`
 *	Datentyp der Arrayelemente: `arr1.dtype`
-	
+
+
 ###4. Wie wandelt man ein (3,4)-Array in ein (2,6)-Array um?
 
 	import numpy as np
 	arr1 = np.floor(10*np.random.random((3,4,)))
-	arr1.shape = (2,6)
-	
+	arr1.reshape = (2,6)
+
+
 ###5. Wie transponiert man ein zweidimensionales Array?
 
 	arr1.transpose()
 
+	
 ###6. Wie multipliziert man zwei Arrays elementweise?
 
 	arr1 * arr2
+
 	
 ###7. Wie führt man eine Matrixmultiplikation zweier zweidimensionaler Arrays A und B aus? Welche Bedingungen müssen A und B erfüllen, damit überhaupt eine Matrixmultiplikation durchgeführt werden kann?
-_A muss gleich viele Zeilen wie B Spalten haben, und umgekehrt.
+_A muss gleich viele Zeilen wie B Spalten haben, und umgekehrt._
 
 	arr1=np.floor(10*np.random.random( (2,3) ))
 	arr2=np.floor(10*np.random.random( (3,2) ))
 	arrayA.dot(arrayB)
+	
 
 ###8. Wie greift man auf das Element (2,3) in einem (4,4)-Array A zu? Wie greift man auf die erste Spalte, wie auf die erste Zeile dieses Arrays zu?
-*	Element(2,3): `arr[2,3]`
-*	Erste Spalte: ``
-*	erste Zeile: ``
+_Funktioniert nur für numpy Arrays, Python Arrays sind eindimensional_  
+
+*	Element(2,3): `arr[1,2]`
+*	Erste Spalte: `arr[:,0]`
+*	erste Zeile: `arr[0,:]`
+
 
 ###9. Wie berechnet man die Quadratwurzel aller Elemente eines Arrays?
 Hierfür werden _Universal Functions_ verwendet.  
@@ -119,21 +130,51 @@ Hierfür werden _Universal Functions_ verwendet.
 --  
 
 ##Scipy: Geben Sie kurz die Schritte an, die für die Durchführung eines hierarchischen Clustering mit Scipy notwendig sind.
-Frage versteh ich nicht richtig: Mögliche Antwort: Quantifizierung und Clustering? Danach muss die Anzahl der gewünschten Cluster angegeben werden, damit die passenden Ähnlichkeiten zusammenbleiben.  
-Ein Lnk, der vielleicht weiterhilft [bei so](http://stackoverflow.com/questions/21638130/tutorial-for-scipy-cluster-hierarchy), _marc: ich kuck mir das morgen nochmal an._  
-Genereller Ablauf: 
+Frage versteh ich nicht richtig.  
+Mögliche Antwort: Quantifizierung und Clustering? Danach muss die Anzahl der gewünschten Cluster angegeben werden, damit die passenden Ähnlichkeiten zusammenbleiben.  
+Ein Link, der vielleicht weiterhilft [bei so](http://stackoverflow.com/questions/21638130/tutorial-for-scipy-cluster-hierarchy).  
+_marc: ich kuck mir das morgen nochmal an._  
+
 
 
 ##Scikit Learn: 
 Sklearn stellt u.a. eine umfassende Bibliothek von Klassen für das überwachte Lernen bereit. 
-Mit welchem Methodenaufruf werden diese Kassen trainiert? 
+###Mit welchem Methodenaufruf werden diese Klassen trainiert? 
 
-Mit welchem Methodenaufruf können die trainierten Modelle auf neue Eingabedaten angewandt werden um den entsprechenden Ausgabewert zu berechnen? 
+	regressor=linear_model.LinearRegression()
+	regressor.fit(features,targets)
 
-Mit welchem Leistungsmaß kann die Qualität eines Regressionsmodells bewertet werden? Wie wird dieses Leistungsmaÿ mit Sklearn berechnet?
+###Mit welchem Methodenaufruf können die trainierten Modelle auf neue Eingabedaten angewandt werden um den entsprechenden Ausgabewert zu berechnen?
 
-Mit welchem Leistungsmaß kann die Qualität eines Klassifikationsmodells bewertet werden? 
+	predictedOutput = regressor.predict(features)
 
-Wie wird dieses Leistungsmaß mit Sklearn berechnet? 
+###Mit welchem Leistungsmaß kann die Qualität eines Regressionsmodells bewertet werden? Wie wird dieses Leistungsmaß mit Sklearn berechnet?
+_Mean Square Error_ (Vorteil: normiert) `mse = metrics.mean_squared_error(predictedOutput, targets)`  
+und _Mean Absolute Difference_ `mad = 1.0 / numInstances * metrics.pairwise.manhattan_distances(predictedOutput,targets)`  
 
-Was versteht man unter x-facher Kreuzvalidierung und wie wird diese mit Sklearn durchgeführt?
+mse (ohne scikit-learn) `mse2 = 1.0 / numInstances * np.sum( (predictedOutput-targets)**2 )`  
+mad (ohne scikit-learn) `mad2 = 1.0 / numInstances * np.sum(np.abs(predictedOutput-targets))`  
+
+##Mit welchem Leistungsmaß kann die Qualität eines Klassifikationsmodells bewertet werden?
+Präzision der erwarteten Ergebnisse (welcher Prozentsatz wurde richtig erkannt)  
+
+##Wie wird dieses Leistungsmaß mit Sklearn berechnet? 
+`metrics.confusion_matrix` und `metrics.classification_report`
+
+Beispiel aus [tutorial zur Vorlesung](http://www.hdm-stuttgart.de/~maucher/Python/SklearnIntro/html/dataminingSklearn.html#beispiel-1-erkennung-von-handgeschriebenen-dezimalzahlen):
+
+	classifier = svm.SVC(gamma=0.001)
+	classifier.fit(digits.data[:n_samples/2], digits.target[:n_samples/2]) # Training
+	predicted = classifier.predict(digits.data[n_samples/2:])              # Test
+	expected = digits.target[n_samples/2:]                                 # Sollwerte der Testdaten
+
+	print "-"*60
+	print "Classsifier : %s\n" %  (classifier)
+	print "Confusion matrix:\n%s\n" % metrics.confusion_matrix(expected, predicted)
+	print "Classification report \n%s" % (metrics.classification_report(expected, predicted))
+  
+
+##Was versteht man unter x-facher Kreuzvalidierung und wie wird diese mit Sklearn durchgeführt?
+_Ist besonders sinnvoll, falls die Menge an Testdaten gering ist._  
+_Was ist es:_ Es werden alle Daten in (disjunkte) Partitionen unterteilt, und bei jedem Durchlauf fungiert eine Partition als Testdatensatz für die Überprüfung nach dem Lernen, die restlichen Partitionen werden zum Training verwendet.  
+Dadurch erhält man gute Ergebnisse und kann das Modell mit verschiedenen Werten testen.  
