@@ -9,7 +9,7 @@ Bei _überwachtem Lernen_ wird nach jeder Iteration geprüft, ob die Eingangsdat
 Beim _unüberwachten Lernen_ gibt es nur Eingangsdaten, aber keine Sollausgabe.  
 
 ###3. Beschreiben Sie die Unterschiede zwischen Klassifikation, Regression und Clustering. Nennen Sie für diese 3 verschiedenen Verfahren je ein Anwendungsbeispiel.
-**Klassifikation** wird beim überwachten Lernen eingesetzt und zwar wird ein diskretes Ausgabeattribut zurückgegeben. _Bsp: .  
+**Klassifikation** wird beim überwachten Lernen eingesetzt und zwar wird ein diskretes Ausgabeattribut zurückgegeben. _Bsp: Bereiche für Typische Klassen._  
 
 **Regression** wird beim überwachten Lernen eingesetzt und liefert zu jedem möglichen Ausgabeattribut einen numerischen Funktionswert zurück. Die Trennung erfolgt durch eine mathematische Funktion.  
 _Bsp: Bei der Gesichtserkennung kann von Wahrscheinlichkeiten ausgegangen werden, welche Person auf dem Bild ist._  
@@ -29,7 +29,7 @@ Ergebnis:
 	squares = [4, 16, 36, 64]
 	points = [(1, 2), (1, 3), (2, 2), (2, 3)]
 
-_Achtung: points hält einen List mit N x N Verknüpfungen der Liste x und der Liste y in Tupeln_
+_Achtung: points hält einen Liste mit N x N Verknüpfungen der Liste x und der Liste y in Tupeln_
 
 
 ###2. Wie importiert man Daten aus einem Textfile?
@@ -55,7 +55,9 @@ Ergebnis:
 	arr1 =[1, 2, 3, 4, 5, 6]
 
 _Achtung:_  
-`arr1.append(arr2)` liefert `[1, 2, 3, [4, 5, 6]` zurück.  
+*	`arr1.append(arr2)` liefert `[1, 2, 3, [4, 5, 6]` zurück.  
+*	`arr1 + arr2` liefert `[1, 2, 3, 4, 5, 6]` zurück, verändert aber arr1 nicht.  
+
 
 
 ##Numpy:
@@ -82,8 +84,8 @@ _Achtung:_
 ###4. Wie wandelt man ein (3,4)-Array in ein (2,6)-Array um?
 
 	import numpy as np
-	arr1 = np.floor(10*np.random.random((3,4,)))
-	arr1.reshape = (2,6)
+	arr1 = np.floor(10*np.random.random((3,4)))
+	arr1.reshape(2,6)
 
 
 ###5. Wie transponiert man ein zweidimensionales Array?
@@ -105,7 +107,7 @@ _A muss gleich viele Zeilen wie B Spalten haben, und umgekehrt._
 	
 
 ###8. Wie greift man auf das Element (2,3) in einem (4,4)-Array A zu? Wie greift man auf die erste Spalte, wie auf die erste Zeile dieses Arrays zu?
-_Funktioniert nur für numpy Arrays, Python Arrays sind eindimensional_  
+_Funktioniert nur für numpy Arrays, Python Arrays sind eindimensional._  
 
 *	Element(2,3): `arr[1,2]`
 *	Erste Spalte: `arr[:,0]`
@@ -124,7 +126,6 @@ Hierfür werden _Universal Functions_ verwendet.
 	deepCopy = a.copy()
 
 ##Pandas:
-_ft020 Edit:_
 ### 1. Wie wird ein Numpy-Array in einen Pandas-Dataframe geschrieben? Wie legt man dabei die Spaltenbezeichnungen und einen Index an?
 **Eingabe**
 
@@ -175,7 +176,6 @@ Laut dokumentation erzeugt der default von read_csv bereits einen Dataframe mit 
 	df.to_csv('target.csv')
 
 ##Matplotlib:
-_ft020 Edit:_
 ### 1. Wie erzeugt man mit Matplotlib einen Plot, wie er in Abbildung 4 dargestellt ist?
 
 	range = np.arange(0.0,7.0,0.1) # range 0-7 with 0.1 intervals
@@ -204,7 +204,8 @@ Mehrere Plots hintereinander generieren:
 Die Funktion plt.subplot kann 3 Parameter aufnehmen: 
 - numrows - Gesamtanzahl Zeilen 
 - numcols - Gesamtanzahl Spalten
-- fignum - Position der Figur
+- fignum - Position der Figur  
+
 **Bsp.:**
 
 	plt.subplot(4,3,1)
@@ -220,7 +221,7 @@ _Achtung: unter jeden Subplot kommt noch der Plot selbst._
 
 
 ### 4. Wie erzeugt man mit Matplotlib ein Histogram?
-Unter verwendung der plt.hist funktion. 
+Unter Verwendung der plt.hist Funktion. 
 
 	plt.hist(x, 50, normed=1, facecolor='g', alpha=0.75)
 
@@ -236,19 +237,13 @@ Unter verwendung der plt.hist funktion.
 	plt.boxplot([x1],vert=False) # plot x1 and set boxplot vertical
 	plt.show()
 
-Boxplot kann noch mit weiteren parametern angepasst werden.
+_Boxplot kann noch mit weiteren Parametern angepasst werden._
 
 
 ##Scipy: Geben Sie kurz die Schritte an, die für die Durchführung eines hierarchischen Clustering mit Scipy notwendig sind.
-Frage versteh ich nicht richtig.  
-Mögliche Antwort: Quantifizierung und Clustering? Danach muss die Anzahl der gewünschten Cluster angegeben werden, damit die passenden Ähnlichkeiten zusammenbleiben.  
-Ein Link, der vielleicht weiterhilft [bei so](http://stackoverflow.com/questions/21638130/tutorial-for-scipy-cluster-hierarchy).  
-_marc: ich kuck mir das morgen nochmal an._  
-
-_ft020 Edit:_
 
 	1. Datenset als Liste (auch mehrdimensional) speichern.
-	2. Eine Distanzfunktion passen zum gestellten Problem finden.
+	2. Eine Distanzfunktion passend zum gestellten Problem finden.
 	3. Werte hierarchisch Clustern.
 	4. (optional) Dendogram erstellen.
 
@@ -276,6 +271,7 @@ Bsp. :
 	
 	plt.show()
 
+Mehr Informationen und ein Beispiel gibts bei [stack overflow](http://stackoverflow.com/questions/21638130/tutorial-for-scipy-cluster-hierarchy).
 
 ##Scikit Learn: 
 Sklearn stellt u.a. eine umfassende Bibliothek von Klassen für das überwachte Lernen bereit. 
@@ -289,14 +285,17 @@ Sklearn stellt u.a. eine umfassende Bibliothek von Klassen für das überwachte 
 	predictedOutput = regressor.predict(features)
 
 ###Mit welchem Leistungsmaß kann die Qualität eines Regressionsmodells bewertet werden? Wie wird dieses Leistungsmaß mit Sklearn berechnet?
-_Mean Square Error_ (Vorteil: normiert) `mse = metrics.mean_squared_error(predictedOutput, targets)`  
-und _Mean Absolute Difference_ `mad = 1.0 / numInstances * metrics.pairwise.manhattan_distances(predictedOutput,targets)`  
+**Mean Square Error** _(Vorteil: normiert)_  
+`mse = metrics.mean_squared_error(predictedOutput, targets)`  
+und **Mean Absolute Difference**  
+`mad = 1.0 / numInstances * metrics.pairwise.manhattan_distances(predictedOutput,targets)`  
 
-mse (ohne scikit-learn) `mse2 = 1.0 / numInstances * np.sum( (predictedOutput-targets)**2 )`  
-mad (ohne scikit-learn) `mad2 = 1.0 / numInstances * np.sum(np.abs(predictedOutput-targets))`  
+Ohne scikit-learn:  
+*	`mse2 = 1.0 / numInstances * np.sum( (predictedOutput-targets)**2 )`  
+*	`mad2 = 1.0 / numInstances * np.sum(np.abs(predictedOutput-targets))`  
 
 ##Mit welchem Leistungsmaß kann die Qualität eines Klassifikationsmodells bewertet werden?
-Präzision der erwarteten Ergebnisse (welcher Prozentsatz wurde richtig erkannt)  
+Indem die Präzision der erwarteten Ergebnisse berechnet wird (welcher Prozentsatz wurde richtig erkannt).  
 
 ##Wie wird dieses Leistungsmaß mit Sklearn berechnet? 
 `metrics.confusion_matrix` und `metrics.classification_report`
