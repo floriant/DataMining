@@ -9,7 +9,7 @@ import sklearn.preprocessing as slp
 import scipy.spatial.distance as ssd
 import scipy.cluster.hierarchy as sch
 
-df = pd.read_csv("../res/EnergyMix.csv")
+df = pd.read_csv("../res/EnergyMixGeo.csv")
 print df
 print df.loc[:,['Oil','Gas','Coal','Nuclear','Hydro']]
 
@@ -18,7 +18,7 @@ print "-------------------------"
 print X
 
 Y = ssd.pdist(X, metric="correlation")
-Z = sch.linkage(Y)
+Z = sch.linkage(Y, method="average")
 #print df.loc[:,'Country']
 labeling = []
 key = 1
@@ -28,10 +28,14 @@ for label in df['Country']:
 print labeling
 sch.dendrogram(Z, labels=labeling, orientation="left")
 
-D = sch.fcluster(Z,0.0)
-print "----------"
+D = sch.fcluster(Z,4, criterion="maxclust")
+print "----------------------"
 print D
-#plt.plot()
+
+df['Cluster'] = D
+print df
+df.to_csv("../res/EnergyMixGeoCluster.csv")
+plt.plot()
 plt.show()
 
 
