@@ -252,10 +252,10 @@ if __name__ == "__main__":
     icon2.shadow = "http://labs.google.com/ridefinder/images/mm_20_shadow.png" # do not hotlink from your web page!
     g.addicon(icon2)
     g.key = "ABQIAAAAQQRAsOk3uqvy3Hwwo4CclBTrVPfEE8Ms0qPwyRfPn-DOTlpaLBTvTHRCdf2V6KbzW7PZFYLT8wFD0A" # you will get your own key
-    g.maps[0].zoom = 10
-    q = [48,9]                           # create a marker with the defaults
-    r = [2,2,'','icon2']                # icon2.id, specify the icon but no text
-    s = [3,3,'hello, <u>world</u>']     # don't specify an icon & get the default
+    g.maps[0].zoom = 2
+    q = [48.77,9.18,'stuttgart', 'icon2']                 # create a marker with the defaults
+    r = [2,2,'tollertext','icon2']                # icon2.id, specify the icon but no text
+    s = [3,3,'hello, <u>world</u>', 'icon2']     # don't specify an icon & get the default
     g.maps[0].setpoint(q)               # add the points to the map
     g.maps[0].setpoint(r)
     g.maps[0].setpoint(s)
