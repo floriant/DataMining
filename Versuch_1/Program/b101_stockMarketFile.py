@@ -34,7 +34,7 @@ symbol_dict = {
     'MMM'  : '3M',
     'MCD'  : 'Mc-Donalds',
     'PEP'  : 'Pepsi',
-#    'KFT'  : 'Kraft-Foods',
+#    'KFT'  : 'Kraft-Foods', #dieses Feld laesst sich nicht lesen
     'K'    : 'Kellogg',
     'UN'   : 'Unilever',
     'MAR'  : 'Marriott',
@@ -69,6 +69,13 @@ symbol_dict = {
     'DD'   : 'DuPont-de-Nemours',
     }
 
+test_symbol_dict = {
+    'TOT'  : 'Total',
+    'XOM'  : 'Exxon',
+    'CVX'  : 'Chevron',
+    'COP'  : 'ConocoPhillips'
+    }
+
 tickers = symbol_dict.keys()
 prices = {}
 openVals = {}
@@ -77,23 +84,33 @@ dates = {}
 
 numTicks=len(tickers)
 
+#Dictionary, aus dem DataFrame erzeugt wird
+d = {}
+
 for t in tickers:
-      print "Ticker:                 ", t
-      rows=urllib2.urlopen('http://ichart.finance.yahoo.com/table.csv?'+\
-                           's=%s&d=02&e=20&f=2012&g=d&a=3&b=12&c=2009'%t +\
-                           '&ignore=.csv').readlines()    
-      print "Anzahl der Datensätze:  ",len(rows)-1
-      print "Struktur Datensatz:     ",rows[0]
-      print "Erster Datensatz:       ",rows[-1]
-      print "Letzter Datensatz:      ",rows[1]
-      prices[t]=[float(r.split(',')[6]) for r in rows[1:] if r.strip()!='']
-      prices[t].reverse()
-      openVals[t]=[float(r.split(',')[1]) for r in rows[1:] if r.strip()!='']
-      openVals[t].reverse()
-      closeVals[t]=[float(r.split(',')[4]) for r in rows[1:] if r.strip()!='']
-      closeVals[t].reverse()
-      dates[t]=[str(r.split(',')[0]) for r in rows[1:] if r.strip()!='']
-      dates[t].reverse()
+    print "Ticker:                 ", t
+    rows=urllib2.urlopen('http://ichart.finance.yahoo.com/table.csv?'+\
+                       's=%s&d=02&e=20&f=2012&g=d&a=3&b=12&c=2009'%t +\
+                       '&ignore=.csv').readlines()
+    print "Anzahl der Datensätze:  ",len(rows)-1
+    print "Struktur Datensatz:     ",rows[0]
+    print "Erster Datensatz:       ",rows[-1]
+    print "Letzter Datensatz:      ",rows[1]
+    prices[t]=[float(r.split(',')[6]) for r in rows[1:] if r.strip()!='']
+    prices[t].reverse()
+    openVals[t]=[float(r.split(',')[1]) for r in rows[1:] if r.strip()!='']
+    openVals[t].reverse()
+    closeVals[t]=[float(r.split(',')[4]) for r in rows[1:] if r.strip()!='']
+    closeVals[t].reverse()
+    dates[t]=[str(r.split(',')[0]) for r in rows[1:] if r.strip()!='']
+    dates[t].reverse()
+    #dictionary aus dem DataFrame erzeugt wird, wird gefüllt
+    d[t] = prices[t][0:742] #Dell liefert 747 Datensätze zurück, alle anderen 742
 
 
+df = pd.DataFrame(d, dates[tickers[0]])
 
+resourceFolder = '../res/'
+df.to_csv(resourceFolder + 'effectiveRates.csv')
+
+print(df)
