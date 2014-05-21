@@ -83,12 +83,20 @@ svr_epsilon = 0.6
 #generating SVR for learning, C and epsilon need to be optimized!
 svr = SVR(kernel="rbf", C=svr_c, epsilon=svr_epsilon)
 
+#train model using training_data_[in/out]
 model = svr.fit(training_data_in, training_data_out)
 
 print "*"*15, "predict stock market", "*"*15
 
+def predict_stockmarket(test_data, model, time_delay):
+
+    pass
+
+#predicted_data_out = predict_stockmarket(test_data=yahoo_cyclic_array[-30:, :], model=model, time_delay=time_delay)
+
+q = 30
 #test model with last 30 entries in stockmarket data
-test_data_in = yahoo_cyclic_array[-30:, :-1]
+test_data_in = yahoo_cyclic_array[-q:, :-1]
 test_data_out = yahoo_cyclic_array[-30:, -1]
 
 #prediction must be done for each row separately
@@ -129,6 +137,8 @@ print "prediction: (%d elements)\n" % (len(predicted_data_out)), predicted_data_
 print "target: (%d elements)\n" % (len(predicted_data_out)), test_data_out
 
 mae = metrics.mean_absolute_error(test_data_out, predicted_data_out)
+# getting mean absolute deviation (MAD) according to method from script
+mad = 1.0/len(predicted_data_out)*np.sum(np.abs(predicted_data_out-test_data_out))
 
 print "Mean Absolute Error: ", mae
 
