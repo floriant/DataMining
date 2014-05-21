@@ -66,6 +66,7 @@ in python mit numpy:
     s_e(a,b) = 1 / (1 + 4.58) = 1,18
 
 **Pearson Ähnlichkeit:**
+
     aMean = 3.5
     aVar = 2.92
     bMean = 5.33
