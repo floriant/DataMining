@@ -9,40 +9,35 @@ import sklearn.preprocessing as slp
 import scipy.spatial.distance as ssd
 import scipy.cluster.hierarchy as sch
 
+# Reading CSV
 df = pd.read_csv("../res/EnergyMixGeo.csv")
-print df
-print df.loc[:,['Oil','Gas','Coal','Nuclear','Hydro']]
 
+# Standardizig /scale), Distance Calculation (pdist) and hierarchical Clustering (linkage)
 X = slp.scale(df.loc[:,['Oil','Gas','Coal','Nuclear','Hydro']], with_mean=False)
-print "-------------------------"
 print X
-
 Y = ssd.pdist(X, metric="correlation")
 Z = sch.linkage(Y, method="average")
-#print df.loc[:,'Country']
+
+# Generating Figure 1 (dendogram)
 labeling = []
 key = 1
 for label in df['Country']:
     labeling.append(label)
     key = key + 1
-print labeling
 plt.figure(1)
 sch.dendrogram(Z, labels=labeling, orientation="left")
 D = sch.fcluster(Z,4, criterion="maxclust")
-print "----------------------"
+print "##### Clustering Values #####"
 print D
+print ""
 
+# Saving Data to CSV with Cluster Value assigned to each Variable
 df['Cluster'] = D
-print df
-df.to_csv("../res/EnergyMixGeoCluster.csv")
-#print df[df['Cluster'].isin([1])]
-print "##################################################"
-#df1 = df[df['Cluster'].isin([1])].stack()
-#print df.ix[df['Cluster']==1, 'Oil','Gas','Coal','Nuclear','Hydro']
-print df[df['Cluster'].isin([1])]
+df.to_csv("../res/EnergyMixGeo.csv")
+
+# Generating Figure 2 (individual Clusters)
 plt.figure(2)
 for index, cluster in df[df['Cluster'].isin([1])].iterrows():
-    print cluster
     plt.subplot(411)
     r = range(2,7,1)
     plt.plot(r, cluster[r], hold=True)
@@ -50,7 +45,6 @@ for index, cluster in df[df['Cluster'].isin([1])].iterrows():
     plt.xticks(r,['Oil','Gas','Coal','Nuclear','Hydro'])
 
 for index, cluster in df[df['Cluster'].isin([2])].iterrows():
-    print cluster
     plt.subplot(412)
     r = range(2,7,1)
     plt.plot(r, cluster[r], hold=True)
@@ -58,7 +52,6 @@ for index, cluster in df[df['Cluster'].isin([2])].iterrows():
     plt.xticks(r,['Oil','Gas','Coal','Nuclear','Hydro'])
 
 for index, cluster in df[df['Cluster'].isin([3])].iterrows():
-    print cluster
     plt.subplot(413)
     r = range(2,7,1)
     plt.plot(r, cluster[r], hold=True)
@@ -66,7 +59,6 @@ for index, cluster in df[df['Cluster'].isin([3])].iterrows():
     plt.xticks(r,['Oil','Gas','Coal','Nuclear','Hydro'])
 
 for index, cluster in df[df['Cluster'].isin([4])].iterrows():
-    print cluster
     plt.subplot(414)
     r = range(2,7,1)
     plt.plot(r, cluster[r], hold=True)

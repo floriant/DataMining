@@ -74,6 +74,6 @@ if __name__ == '__main__':
 
     plot_energy_mix(dataframe, show=False)
 
-    #append_geo_coordinates(dataframe)
+    append_geo_coordinates(dataframe)
 
-    #dataframe.to_csv(resourceFolder + 'EnergyMixGeo.csv')
+    dataframe.to_csv(resourceFolder + 'EnergyMixGeo.csv')
