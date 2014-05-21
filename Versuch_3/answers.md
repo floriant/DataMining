@@ -56,7 +56,35 @@ in python mit numpy:
 
 ## 1.4.6 Wie groß ist die:  Euklidsche Ähnlichkeit, Pearson Ähnlichkeit und Cosinus Ähnlichkeit zwischen den Vektoren a und b?
 
+**Euklische Ähnlichkeit:**
 
+    d_E(a,b) = sqrt( sum(a-b)² )
+    = sqrt( (1-3)² + (2-3)² + (3-5)² + (4-6)² + (5-7)² + (6-8)² )
+    = sqrt( 21 )
+    = 4.58
+
+**Pearson Ähnlichkeit:**
+    aMean = 3.5
+    aVar = 2.92
+    bMean = 5.33
+    bVar = 3.56
+    p_(a,b) = 1/N * sum( ((a_i - aMean)*(b_i - bMean)) / (aVar * bVar) )
+    = 1/6 * (
+            ( ((1 - 3.5)*(3 - 5.33)) / (2.92 * 3.56) )
+            + ( ((2 - 3.5)*(3 - 5.33)) / (2.92 * 3.56) )
+            + ( ((3 - 3.5)*(5 - 5.33)) / (2.92 * 3.56) )
+            + ( ((4 - 3.5)*(6 - 5.33)) / (2.92 * 3.56) )
+            + ( ((5 - 3.5)*(7 - 5.33)) / (2.92 * 3.56) )
+            + ( ((6 - 3.5)*(8 - 5.33)) / (2.92 * 3.56) )
+        )
+    = 0.31
+
+**Cosinus Ähnlichkeit:**
+
+    cos(a,b) = (a*b) / (|a| * |b|)
+    = ({1,2,3,4,5,6} * {3,3,5,6,7,8}) / (6 * 6)
+    = 131 / 36
+    = 3.64
 
 ## 1.4.7 In welchen Fällen sind Cosinus und Pearsonähnlichkeit der euklidschen Ähnlichkeit vorzuziehen?
 
