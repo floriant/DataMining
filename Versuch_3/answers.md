@@ -63,6 +63,8 @@ in python mit numpy:
     = sqrt( 21 )
     = 4.58
 
+    s_e(a,b) = 1 / (1 + 4.58) = 1,18
+
 **Pearson Ähnlichkeit:**
     aMean = 3.5
     aVar = 2.92
@@ -88,11 +90,52 @@ in python mit numpy:
 
 ## 1.4.7 In welchen Fällen sind Cosinus und Pearsonähnlichkeit der euklidschen Ähnlichkeit vorzuziehen?
 
-
+Cosinus und Peasonähnlichkeit eignet sich besonders für Skalierende werte,
+da es nicht die Distanz zu 2 Werten berechnet sondern den Abstand von
+einem Idealwert und darüberhinaus Informationen über die Richtung angibt.
+Cosinus und Pearsonähnlichkeit eignet sich daher für Collaborative Fitting.
 
 ## 1.4.8 Wie wird in Python ein doppelt verschachteltes Dictionary angelegt und wie greift man auf dessen Elemente zu?
 
+    >>> dict = {}
+    >>> dict['dictA'] = {}
+    >>> dict['dictB'] = {}
+    >>> dict['dictA']['dictAA'] = {}
+    >>> dict['dictA']['dictAB'] = {}
+    >>> dict['dictA']['dictAA']['key1'] = 'value1'
+    >>> dict['dictA']['dictAB']['key2'] = 'value2'
+    >>> dict['dictB']['dictBA'] = {}
+    >>> dict['dictB']['dictBB'] = {}
+    >>> dict['dictB']['dictBA']['key3'] = 'value3'
+    >>> dict['dictB']['dictBB']['key4'] = 'value4'
+    >>> print dict
+    >>> print dict['dictA']['dictAB']['key2']
 
+    {
+        'dictA':
+        {
+            'dictAA':
+            {
+                'key1': 'value1'
+            },
+            'dictAB':
+            {
+                'key2': 'value2'
+            }
+        },
+        'dictB':
+        {
+            'dictBA':
+            {
+                'key3': 'value3'
+            },
+            'dictBB':
+            {
+                'key4': 'value4'
+            }
+        }
+    }
+    value2
 
 ## 1.4.9 Wie können mit Hilfe der last.fm-Api pylast.py alle Alben einer Band bestimmt werden?
 
