@@ -85,6 +85,6 @@ if __name__ == '__main__':
 
     draw_separate_boxplots()
 
-    #draw_combined_boxplots()
-    plt.show()
+    draw_combined_boxplots()
+    #plt.show()
 
