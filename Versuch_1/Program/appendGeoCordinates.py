@@ -7,6 +7,7 @@ import time
 
 resourceFolder = '../res/'
 
+
 def plot_energy_mix(dataframe, show=False):
     energySources = ['Oil', 'Gas', 'Coal', 'Nuclear', 'Hydro']
     range = dataframe.index

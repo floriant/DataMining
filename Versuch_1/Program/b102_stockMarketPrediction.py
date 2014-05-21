@@ -96,8 +96,9 @@ def predict_stockmarket(test_data, model, time_delay):
 
 q = 30
 #test model with last 30 entries in stockmarket data
-test_data_in = yahoo_cyclic_array[-q:, :-1]
-test_data_out = yahoo_cyclic_array[-30:, -1]
+test_data = yahoo_cyclic_array[-q:, :]
+test_data_in = test_data[:, :-1]
+test_data_out = test_data[:, -1]
 
 #prediction must be done for each row separately
 # (predicted values must be used in subsequent predictions)
@@ -142,5 +143,35 @@ mad = 1.0/len(predicted_data_out)*np.sum(np.abs(predicted_data_out-test_data_out
 
 print "Mean Absolute Error: ", mae
 
+
 #TODO: plot predicted and actual stock market
 #Darstellung des tatsächlichen Kursverlaufs und der vorhergesagten Daten
+
+
+def plot_predicted_stockmarket(actual_data, prediction_training, prediction_forecast):
+    #real data
+    plt.figure(figsize=(12, 5))
+    ax = actual_data.plot(style='k', label='real')
+    ax.set_ylabel('price in $')
+    ax.set_xlabel('time in days')
+
+    #predicted values on training data
+    ts = pd.Series(prediction_training, index=range(len(prediction_training)))
+    ts.plot(style='-b.', label='prediction')
+
+    #forecast
+    start = len(actual_data)-len(prediction_forecast)
+    end = start + len(prediction_forecast)
+    ts = pd.Series(prediction_forecast, index=range(start, end))
+    ts.plot(style='-r.', label='forecast')
+
+    plt.title('Stock market values and prediction')
+    plt.legend()
+
+    plt.savefig('../doc/stock_forecast.png')
+    plt.show()
+
+
+
+prediction_on_training_data = model.predict(yahoo_cyclic_array[:712, :-1])
+plot_predicted_stockmarket(yahoo_df, prediction_on_training_data, predicted_data_out)
