@@ -186,6 +186,8 @@ Laut dokumentation erzeugt der default von read_csv bereits einen Dataframe mit 
 	plt.ylabel('sin(x)')
 	plt.show()
 
+![Sinus-Grafik](answers_sin_1.png)
+
 
 ### 2. Wie kann man mehrere Graphen in einen Plot eintragen?
 **Option 1**
