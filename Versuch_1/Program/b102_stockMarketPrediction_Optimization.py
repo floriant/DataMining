@@ -135,58 +135,72 @@ def plot_predicted_stockmarket(actual_data, prediction_training, prediction_fore
 df = pd.read_csv(resourceFolder + 'effectiveRates.csv')
 
 #Teilaufgabe 2:
-print_five_charts(df) #TODO remove comment
+#print_five_charts(df) #TODO remove comment
 
 yahoo_df = df.ix[:, 'YHOO']
 
 training_data_length = 650
 test_data_length = 30
 
+best_model = None
+best_mae = 999.0
+worst_mae = 0
 
-#initial values from script
-time_delay = 30
-c = 500.0
-epsilon = 0.6
+#for time_delay in range(25,35):
+for time_delay in range(25, 35):
 
-#optimized values from b102_stockMarketPrediction_Optimization.py
-time_delay = 25
-c = 400.0
-epsilon = 0.85
+    yahoo_cyclic_array = create_cyclic_data(yahoo_df, time_delay)
 
+    #test model with last 30 entries in stockmarket data
+    test_data = yahoo_cyclic_array[-test_data_length:, :]
+    test_data_out = test_data[:, -1]
+    #print(yahoo_cyclic_array)
 
+    for c in np.arange(400.0, 500.0, 5):
+        for epsilon in np.arange(0.1, 0.9, 0.05):
+            model = train_model(training_data=yahoo_cyclic_array, training_data_length=650, svr_c=c, svr_epsilon=epsilon)
 
-#Teilaufgabe 3-6:
-yahoo_cyclic_array = create_cyclic_data(yahoo_df, time_delay)
-#print(yahoo_cyclic_array)
+            #calculate mae
+            predicted_data_out = predict_stockmarket(test_data, model, time_delay)
 
-model = train_model(training_data=yahoo_cyclic_array, training_data_length=650, svr_c=c, svr_epsilon=epsilon)
+            mae = metrics.mean_absolute_error(test_data_out, predicted_data_out)
+            # getting mean absolute deviation (MAD) according to method from script
+            #mad = 1.0/len(predicted_data_out)*np.sum(np.abs(predicted_data_out-test_data_out))
 
-print "*"*10, "predict stock market(svr_c=%s, svr_epsilon=%s)" % (c, epsilon), "*"*10
+            print "predict stock market(time_delay=%s, svr_c=%s, svr_epsilon=%s)" % (time_delay, c, epsilon), \
+                "-> mae =", mae
 
-#test model with last 30 entries in stockmarket data
-test_data = yahoo_cyclic_array[-test_data_length:, :]
+            if mae < best_mae:
+                best_mae = mae
+                best_params = {"time_delay": time_delay, "svr_c": c, "svr_epsilon":epsilon }
+                best_prediction = predicted_data_out
+                best_model = model
 
-#calculate mae
-predicted_data_out = predict_stockmarket(test_data, model, time_delay)
-test_data_out = test_data[:, -1]
-
-mae = metrics.mean_absolute_error(test_data_out, predicted_data_out)
-# getting mean absolute deviation (MAD) according to method from script
-#mad = 1.0/len(predicted_data_out)*np.sum(np.abs(predicted_data_out-test_data_out))
-print "  mae =", mae
-
-
+            if mae > worst_mae:
+                worst_mae = mae
 
 #---------------
 #generate output
 #---------------
 #print prediction
-print "*"*15, "compare prediction and target", "*"*15
-print "prediction: (%d elements)\n" % (len(predicted_data_out)), predicted_data_out
-print "target: (%d elements)\n" % (len(predicted_data_out)), test_data_out
-print "Mean Absolute Error: ", mae
+print "\n\n", "*"*15, "compare prediction and target", "*"*15
+print "prediction: (%d elements)\n" % (len(best_prediction)), best_prediction
+print "target: (%d elements)\n" % (len(best_prediction)), test_data_out
+print "Mean Absolute Error: ", best_mae
+print "best params: ", best_params
+print "Worst MAE: ", worst_mae
 
 #plot prediction
-prediction_on_training_data = model.predict(yahoo_cyclic_array[:(len(df)-test_data_length), :-1])
+prediction_on_training_data = best_model.predict(yahoo_cyclic_array[:(len(df)-test_data_length), :-1])
 
-plot_predicted_stockmarket(yahoo_df, prediction_on_training_data, predicted_data_out)
+plot_predicted_stockmarket(yahoo_df, prediction_on_training_data, best_prediction)
+
+
+"""
+result of optimization:
+best Mean Absolute Error:  0.689365693101
+best params:  {'svr_c': 400.0, 'svr_epsilon': 0.8500000000000002, 'time_delay': 25}
+Worst MAE:  1.68125860567
+
+~10 Minuten
+"""
