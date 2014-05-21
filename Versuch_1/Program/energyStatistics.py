@@ -3,7 +3,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-
 def write_to_file(aString, filename):
     aFile = open(filename, 'w')
     aFile.write(aString)
@@ -50,7 +49,7 @@ def all_in_one_boxplot(with_fliers=True):
 
 def draw_separate_boxplots():
     resources = ['Oil', 'Gas', 'Coal', 'Nuclear', 'Hydro']
-    fig, axes = plt.subplots()
+#    fig, axes = plt.subplots()
 #    fig, axes = plt.subplots(2, 3, sharex=True, sharey=True)
 
     for resource in resources:
@@ -58,6 +57,7 @@ def draw_separate_boxplots():
         draw_single_boxplot(resource, with_fliers=False)
 
     plt.clf()
+
 
 def draw_single_boxplot(resource, with_fliers=True):
     if with_fliers:
@@ -70,6 +70,7 @@ def draw_single_boxplot(resource, with_fliers=True):
     print "Drawing boxplot for resource '%s'" % (resource)
 
     plt.clf()
+    plt.figure(figsize=(8,3)) #figsize in inch
     plt.boxplot([df[resource]], sym=sym_parameter, vert=False)
     plt.title('Boxplot for %s' % (resource) )
 
