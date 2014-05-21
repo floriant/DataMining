@@ -126,7 +126,7 @@ def plot_predicted_stockmarket(actual_data, prediction_training, prediction_fore
     plt.title('Stock market values and prediction')
     plt.legend()
 
-    plt.savefig('../doc/stock_forecast.png')
+    plt.savefig('../doc/stockpredict.png')
     plt.show()
 
 
