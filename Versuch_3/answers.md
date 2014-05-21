@@ -139,4 +139,24 @@ Cosinus und Pearsonähnlichkeit eignet sich daher für Collaborative Fitting.
 
 ## 1.4.9 Wie können mit Hilfe der last.fm-Api pylast.py alle Alben einer Band bestimmt werden?
 
+Theoretisch ermittelbar über folgenden Code:
 
+    import pylast as fm
+    network=fm.get_lastfm_network()
+    madonna = network.get_artist("Madonna")
+    albums = madonna.get_top_albums()
+    print madonna
+    print albums
+
+Ergebnis hier ist eine Liste wie hier (gekürzt):
+
+    [TopItem(item=Madonna - Celebration, weight=u'481971'),
+    TopItem(item=Madonna - Ray of Light, weight=u'330368'),
+    TopItem(item=Madonna - Confessions on a Dance Floor, weight=u'352418'),
+    ... ]
+
+Problem: Wir erhalten jede CD die jemals erschienen ist, somit auch Singles, Compilations und Specials.
+
+
+## helpfull
+https://pylast.googlecode.com/hg-history/9b5130860d785e9936911ceb094fb9567c4978a3/documentation.html
