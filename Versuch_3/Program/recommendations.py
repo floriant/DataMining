@@ -26,7 +26,7 @@ import numpy as np
 import scipy.spatial.distance as sci
 
 
-def sim_euclid(prefs,person1,person2,normed=False):
+def sim_euclid(prefs,person1,person2,normed=True):
   ''' Returns a euclidean-distance-based similarity score for 
   person1 and person2. In the distance calculation the sum is computed 
   only over those items, which are nonzero for both instances, i.e. only
