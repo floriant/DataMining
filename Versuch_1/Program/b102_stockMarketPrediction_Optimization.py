@@ -147,7 +147,7 @@ best_mae = 999.0
 worst_mae = 0
 
 #for time_delay in range(25,35):
-for time_delay in range(25, 35):
+for time_delay in range(1, 35):
 
     yahoo_cyclic_array = create_cyclic_data(yahoo_df, time_delay)
 
@@ -156,7 +156,7 @@ for time_delay in range(25, 35):
     test_data_out = test_data[:, -1]
     #print(yahoo_cyclic_array)
 
-    for c in np.arange(400.0, 500.0, 5):
+    for c in np.arange(400.0, 450.0, 5):
         for epsilon in np.arange(0.1, 0.9, 0.05):
             model = train_model(training_data=yahoo_cyclic_array, training_data_length=650, svr_c=c, svr_epsilon=epsilon)
 

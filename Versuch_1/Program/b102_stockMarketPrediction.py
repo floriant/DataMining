@@ -149,7 +149,7 @@ c = 500.0
 epsilon = 0.6
 
 #optimized values from b102_stockMarketPrediction_Optimization.py
-time_delay = 25
+time_delay = 1
 c = 400.0
 epsilon = 0.85
 
