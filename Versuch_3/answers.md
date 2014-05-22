@@ -63,7 +63,7 @@ in python mit numpy:
     = sqrt( 21 )
     = 4.58
 
-    s_e(a,b) = 1 / (1 + 4.58) = 1,18
+    s_e(a,b) = 1 / (1 + 4.58) = 0,18
 
 **Pearson Ähnlichkeit:**
 
@@ -88,6 +88,17 @@ in python mit numpy:
     = ({1,2,3,4,5,6} * {3,3,5,6,7,8}) / (6 * 6)
     = 131 / 36
     = 3.64
+	
+Mit: `|a| = sqrt(a*a)`
+
+	|a| = 9.599
+	|b| = 13.856
+	(a * b) = {1,2,3,4,5,6} * {3,3,5,6,7,8} = 131
+	cos(a,b) = (a*b) / (|a| * |b|)
+	= 131 / (9.599 * 13.856)
+	= 0.991
+	
+	
 
 ## 1.4.7 In welchen Fällen sind Cosinus und Pearsonähnlichkeit der euklidschen Ähnlichkeit vorzuziehen?
 
@@ -159,5 +170,5 @@ Ergebnis hier ist eine Liste wie hier (gekürzt):
 Problem: Wir erhalten jede CD die jemals erschienen ist, somit auch Singles, Compilations und Specials.
 
 
-## helpfull
-https://pylast.googlecode.com/hg-history/9b5130860d785e9936911ceb094fb9567c4978a3/documentation.html
+## helpful
+[https://pylast.googlecode.com/hg-history/9b5130860d785e9936911ceb094fb9567c4978a3/documentation.html](https://pylast.googlecode.com/hg-history/9b5130860d785e9936911ceb094fb9567c4978a3/documentation.html)
