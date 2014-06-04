@@ -1,7 +1,6 @@
 #Fragen zu Versuch 4: Dokument Klassifikation / Spam Filter
 
-## 1.4.1 Wie wird ein Naiver Bayes Classifier trainiert?
-Ein Naiver Bayes Classifier kann nur überwacht trainiert werden.  
+## 1.4.1 Wie wird ein Naiver Bayes Classifier trainiert?  
 
 Für jeden Trainingsdatensatz mit einer Menge von Variablen x muss jeder Wert einer Klasse C_i zugeordnet werden können.
 
@@ -9,14 +8,16 @@ Für jeden Trainingsdatensatz mit einer Menge von Variablen x muss jeder Wert ei
     # und wähle jeweils die Klasse mit größten Wahrscheinlichkeit aus
     P(C_i | x)
 
-Die Berechnung erfolgt über die Bayes Formel wobei:
+Die Berechnung erfolgt über die Bayes Formel 
+![Bayes Formel](answers_partial/1.4.1_bayes_formel.png)
+
+Mit:
 
     P(C_i | x) # a-postprioi-Wahrscheinlichkeit
     p(x | C_i) # Ermittelt mit Likelihood Funktion
     P(C_i)  #a-priori-Wahrscheinlichkeit
     p(x) # Evidenz (Größe irrelevant)
 
-![Bayes Formel](answers_partial/1.4.1_bayes_formel.png)
 
   
 Hat man für die Variable x eine Klassifikation zur Klasse C_i geschaffen, kann man neue Elemente nach diesen Kriterien testen.  
@@ -84,28 +85,14 @@ Für Dokumenten mit stark variierenden Wortanzahlen ist er nicht sinnvoll einset
 
 Generell kann der Bayes Classificator auch nicht dazu verwendet werden, um Schreibstile oder den Kontext des Dokuments zu erkennen.
 
-## 1.4.5 Betrachten Sie die Formeln 5 und 6. Welches Problem stellt sich ein, wenn in der Menge W(D) ein Wort vorkommt, das nicht in den Trainingsdaten der Kategorie G vorkommt und ein anderes Wort aus W(D) nicht in den Trainingsdaten der Kategorie B enthalten ist= Wie könnte dieses Problem gelöst werden?
+## 1.4.5 Betrachten Sie die Formeln 5 und 6:
+###Welches Problem stellt sich ein, wenn in der Menge W(D) ein Wort vorkommt, das nicht in den Trainingsdaten der Kategorie G vorkommt und ein anderes Wort aus W(D) nicht in den Trainingsdaten der Kategorie B enthalten ist?
 
-Das Problem erzeugt einen Fehler in der Formel, da das Produkt eine der Likelihood damit eine Null enthält.
-Man könnte für diesen Fall den Wert 0.5 für beide Kategorien wählen, damit währe eine Gleichverteilung gegeben.
-Man könnte alternativ auch das Wort ausklammern und anschließend in eine neue Trainingsbildung einfließen lassen,
-wobei die Wahrscheinlichkeit auf der Klassifikation der anderen Elemente des Dokuments beruht.
+Das Problem erzeugt einen Fehler in der Formel, da das Produkt, das die Likelihood errechnet, eine Null enthält und damit selbst bei Null liegt.  
+Dadurch wird das Gesamtergebnis verfälscht, da eine Klasse mit Ausnahme dieses einen Wortes perfekt passen würde, aber aufgrund der Null nicht mehr passt und das Dokument falsch einsortiert wird.
 
-----
+###Wie könnte dieses Problem gelöst werden?
+Man könnte das Wort ausklammern und anschließend in eine neue Trainingsbildung einfließen lassen,
+wobei die Wahrscheinlichkeit auf der Klassifikation der anderen Elemente des Dokuments beruht.  
 
-#3 Fragen zum Versuch
-1. Was wird mit Evidenz bezeichnet und warum muss diese für die Klassifikation nicht berücksichtigt
-werden?
-Evidenz ist p(x) und ist für die Klassifikationsentscheidung nicht relevant, da sie für alle Klassen Ci gleich groß ist.
-
-2. Wann würden Sie in der Formel für die gewichtete Wahrscheinlichkeit den Wert von initprob kleiner,
-wann gröÿer als 0.5 wählen? (Falls Sie die Möglichkeit haben diesen Wert für jedes Feature und jede
-Kategorie individuell zu konfigurieren)
-
-
-3. Was könnten Sie mit dem in dieser Übung implementierten Classifier noch klassifizieren? Geben Sie
-eine für Sie interessante Anwendung an.
-
-
-4. Das einmal trainierte, sollte eigentlich persistent abgespeichert werden. Beschreiben Sie kurz wie
-Sie das für dieses Programm machen würden.
+Oder bei der Berechnung der Likelihood kann jeder Null-Wert verworfen werden.
