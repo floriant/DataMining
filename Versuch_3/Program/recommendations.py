@@ -24,6 +24,7 @@ import matplotlib.pyplot as plt
 from math import sqrt
 import numpy as np
 import scipy.spatial.distance as sci
+import pylast
 
 
 def sim_euclid(prefs,person1,person2,normed=True):
@@ -99,7 +100,32 @@ def sim_RusselRao(prefs,person1,person2,normed=True):
   if not normed:
       return commons
   else:
-      return commons*1.0/len(prefs[person1])  
+      return commons*1.0/len(prefs[person1])
+
+def createLastfmUserDict(group):
+    # need to be done as function in recommendations.py
+    userDict = {}
+    allBands = []
+    for user in group:
+        userDict[user.get_name()] = {}
+        #userObject = network.get_user(user)
+        #print userObject.name
+        topArtists = user.get_top_artists()[0:20]
+        for i,artist in enumerate(topArtists):
+            bandFlag = 0
+            for band in allBands:
+                if(topArtists[i].item.name == band):
+                    bandFlag = 1
+            if(bandFlag == 0):
+                allBands.append(topArtists[i].item.name)
+    print allBands
+    for user in group:
+        for band in allBands:
+            userDict[user.get_name()][band] = 0
+        for i,artist in enumerate(topArtists):
+            userDict[user.get_name()][topArtists[i].item.name] = 1
+
+    return userDict
       
   
 
