@@ -22,11 +22,10 @@ def run_assignment_2_2():
 
     print "-"*50
 
+
 ##############################################################
 #2.3 UCF
 ##############################################################
-
-
 def run_assignment_2_3():
     print "-"*50, "\n", "assignment 2.3: User based collaborative filtering (UCF)\n", "-"*50
 
@@ -34,21 +33,19 @@ def run_assignment_2_3():
 
     print "-"*50
 
+
 ##############################################################
 #2.4 ICF
 ##############################################################
-
-
-
 def run_assignment_2_4():
     print "-"*50, "\n", "assignment 2.4: Item based collaborative filtering (ICF)\n", "-"*50
     transCritics = reco.transformCritics(critics)
     person = 'Toby'
 
-    recommendations_euclid = getRecommendedItems(transCritics, person, reco.sim_euclid)
+    recommendations_euclid = reco.getRecommendedItems(transCritics, person, reco.sim_euclid)
     print "Recommendations for %s (calculated with Euclidean Distance):\n " % (person), recommendations_euclid
 
-    recommendations_pearson = getRecommendedItems(transCritics, person, reco.sim_pearson)
+    recommendations_pearson = reco.getRecommendedItems(transCritics, person, reco.sim_pearson)
     print "Recommendations for %s (calculated with Pearson Distance):\n " % (person), recommendations_pearson
 
     print "-"*50
