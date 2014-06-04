@@ -22,8 +22,9 @@ userDict = recom.createLastfmUserDict(group)
 pp.pprint(userDict)
 selectedUser = group[3]
 print selectedUser
-result = rct.topMatches(userDict, group[3].get_name(), recom.sim_euclid)
-pp.pprint(result)
+topMatches = recom.topMatches(userDict, group[3].get_name(), recom.sim_euclid)
+pp.pprint(topMatches)
+recommendations = recom.getRecommendations(userDict, group[3].get_name(), recom.sim_euclid)
 
 
 #print result[0][1].key()
