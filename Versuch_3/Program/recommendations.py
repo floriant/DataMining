@@ -37,6 +37,7 @@ def createLastfmUserDict(group):
         #userObject = network.get_user(user)
         #print userObject.name
         topArtists = user.get_top_artists()[0:20]
+        print topArtists
         for i,artist in enumerate(topArtists):
             bandFlag = 0
             for band in allBands:
@@ -46,6 +47,7 @@ def createLastfmUserDict(group):
                 allBands.append(topArtists[i].item.name)
     print allBands
     for user in group:
+        topArtists = user.get_top_artists()[0:20]
         for band in allBands:
             userDict[user.get_name()][band] = 0
         for i,artist in enumerate(topArtists):
