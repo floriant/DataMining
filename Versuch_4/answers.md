@@ -77,7 +77,7 @@ Mit der vereinfachten Annahme lässt sich alles auf die Formel (2) reduzieren.
 ![Formel 2](answers_partial/1.4.3_formel2.png)
 (wobei die Evidenz p(D) vernachlässigt werden kann)
 
-## 1.4.4 Ist diese Annahme im Fall der Dokumentklasifikation tatsächlich gegeben?
+## 1.4.4 Ist diese Annahme im Fall der Dokumentklassifikation tatsächlich gegeben?
 
 Der Naive Bayes Classificator richtet sich sehr stark an der Anzahl von Worten in Dokumenten aus.
 Für eine Klassifikation wie in der Vorbereitung in Spam oder Nicht-Spam ist diese Annahme anwendbar.  
