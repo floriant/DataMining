@@ -59,8 +59,8 @@ if __name__ == "__main__":
     critics = reco.critics;
 
     #TODO uncomment all assignments when done
-    #run_assignment_2_2()
+    run_assignment_2_2()
     run_assignment_2_3()
-    #run_assignment_2_4()
+    run_assignment_2_4()
 
 

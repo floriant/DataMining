@@ -27,6 +27,7 @@ from math import sqrt
 import numpy as np
 import scipy.spatial.distance as sci
 import pylast
+import pprint as pp
 
 def createLastfmUserDict(group):
     # need to be done as function in recommendations.py
@@ -37,7 +38,6 @@ def createLastfmUserDict(group):
         #userObject = network.get_user(user)
         #print userObject.name
         topArtists = user.get_top_artists()[0:20]
-        print topArtists
         for i,artist in enumerate(topArtists):
             bandFlag = 0
             for band in allBands:
@@ -45,7 +45,6 @@ def createLastfmUserDict(group):
                     bandFlag = 1
             if(bandFlag == 0):
                 allBands.append(topArtists[i].item.name)
-    print allBands
     for user in group:
         topArtists = user.get_top_artists()[0:20]
         for band in allBands:
@@ -172,6 +171,7 @@ def getRecommendations(prefs,user,similarity):
     for item in topMatches(prefs,user,similarity):
         sims[item[0]] = item[1]    
     weightRat = {}
+    #print sims
 
     for person in sims:
         if sims[person] >= 0:
@@ -184,10 +184,11 @@ def getRecommendations(prefs,user,similarity):
         if sims[person] >= 0:
             for item in prefs[person]:
                     weightRat[item][person] = sims[person] * prefs[person][item]
-    #remove movies watched    
+
+    #remove movies watched
     for name in prefs[user]:
-        weightRat.pop(name)
-    
+        if prefs[user][name] != 0:
+            weightRat.pop(name)
     sums = {}
     for item in weightRat:
         sums[item] = sum(weightRat[item].itervalues())
@@ -208,7 +209,7 @@ def getRecommendations(prefs,user,similarity):
     results = []
     for key, value in sorted(recomendations.iteritems(), key=lambda (k,v): (v,k), reverse=True):
         results.append([key, value])
-    #print results
+
     return results
         
 ##############################################################

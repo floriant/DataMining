@@ -19,12 +19,18 @@ group=[a.item for a in topfans]
 #print group
 
 userDict = recom.createLastfmUserDict(group)
-pp.pprint(userDict)
-selectedUser = group[3]
-print selectedUser
-topMatches = recom.topMatches(userDict, group[3].get_name(), recom.sim_euclid)
+selectedUser = group[1].get_name()
+print "Selected User: "
+pp.pprint(selectedUser)
+print "===================================="
+topMatches = recom.topMatches(userDict, group[1].get_name(), recom.sim_euclid)
+print "Top Matches: "
 pp.pprint(topMatches)
-recommendations = recom.getRecommendations(userDict, group[3].get_name(), recom.sim_euclid)
+print "===================================="
+recommendations = recom.getRecommendations(userDict, group[1].get_name(), recom.sim_euclid)
+print "Recommendations: "
+pp.pprint(recommendations)
+print "===================================="
 
 
 #print result[0][1].key()
