@@ -166,11 +166,11 @@ def getRecommendetMov(matches, person):
     
     return result
 
-def getRecommendations(prefs,client,similarity):
+def getRecommendations(prefs,user,similarity):
     sims = {}
     
-    for item in topMatches(prefs,client,similarity):
-        sims[item[0]] = item[1]
+    for item in topMatches(prefs,user,similarity):
+        sims[item[0]] = item[1]    
     weightRat = {}
 
     for person in sims:
@@ -184,7 +184,10 @@ def getRecommendations(prefs,client,similarity):
         if sims[person] >= 0:
             for item in prefs[person]:
                     weightRat[item][person] = sims[person] * prefs[person][item]
-
+    #remove movies watched    
+    for name in prefs[user]:
+        weightRat.pop(name)
+    
     sums = {}
     for item in weightRat:
         sums[item] = sum(weightRat[item].itervalues())
