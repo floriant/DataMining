@@ -29,8 +29,11 @@ def run_assignment_2_2():
 def run_assignment_2_3():
     print "-"*50, "\n", "assignment 2.3: User based collaborative filtering (UCF)\n", "-"*50
 
-    pass
-
+    recommendations = reco.getRecommendations(reco.critics,'Toby',reco.sim_pearson)
+    
+    for i in recommendations:
+        print i
+    
     print "-"*50
 
 
@@ -56,8 +59,8 @@ if __name__ == "__main__":
     critics = reco.critics;
 
     #TODO uncomment all assignments when done
-    run_assignment_2_2()
+    #run_assignment_2_2()
     run_assignment_2_3()
-    run_assignment_2_4()
+    #run_assignment_2_4()
 
 

@@ -139,7 +139,9 @@ def topMatches(prefs, person, similarity):
 
         if critic != person:
             index = 0
-            sim = abs(similarity(prefs, person, critic))
+            #sim = abs(similarity(prefs, person, critic))
+            #Bei 2.3 sollen wohl doch negative Werte bei rauskommen
+            sim = similarity(prefs, person, critic)
             if len(result) == 0:
                 result.append([critic, sim])
             else:
@@ -157,10 +159,53 @@ def topMatches(prefs, person, similarity):
 ##############################################################
 #2.3 UCF
 ##############################################################
+def getRecommendetMov(matches, person):
+    #watched = critics[person]
+    
+    return result
+
+def getRecommendations(prefs,client,similarity):
+    sims = {}
+    
+    for item in topMatches(prefs,client,similarity):
+        sims[item[0]] = item[1]
+    weightRat = {}
+
+    for person in sims:
+        if sims[person] >= 0:
+            for item in prefs[person]:
+                    weightRat[item] = {}
+
+    #calculate weighted
+    for person in sims:
+        #exclude items with negative correlation
+        if sims[person] >= 0:
+            for item in prefs[person]:
+                    weightRat[item][person] = sims[person] * prefs[person][item]
+
+    sums = {}
+    for item in weightRat:
+        sums[item] = sum(weightRat[item].itervalues())
 
 
+    kSums = {}
+    for item in weightRat:
+        kSums[item] = 0
+    for item in weightRat:
+        for person in sims:
+             if sims[person] >= 0:
+                if prefs[person].has_key(item):
+                    kSums[item] = kSums[item] + sims[person]
 
-
+    recomendations = {}
+    for item in sums:
+        recomendations[item] = sums[item]/kSums[item]
+    results = []
+    for key, value in sorted(recomendations.iteritems(), key=lambda (k,v): (v,k), reverse=True):
+        results.append([key, value])
+    #print results
+    return results
+        
 ##############################################################
 #2.4 ICF
 ##############################################################
