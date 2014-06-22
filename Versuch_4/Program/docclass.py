@@ -20,24 +20,32 @@ def getwords(doc, mi=3, ma=20):
 
 
 class Classifier():
-    def __init__(self, getfeatures):
+    def __init__(self, getfeatures, classes):
         self.fc = {}
-        self.cc = {'Good': 0, 'Bad': 0}
+        """self.cc = {'Good': 0, 'Bad': 0}"""
+        self.classes = classes
+        self.cc = self.create_classes_dictionary()
+
         self.getfeatures = getfeatures
+
+    def create_classes_dictionary(self):
+        #create_classes_dictionary(['Good', 'Bad']) => {'Good': 0, 'Bad': 0}
+        result = {}
+        for cls in self.classes:
+            result[cls] = 0
+
+        return result
 
     def incf(self, f, cat):
         if f not in self.fc:
-            goobad = {'Good': 0, 'Bad': 0}
-            goobad[cat] = 1
-            #print(goobad)
-            self.fc[f] = goobad
+            self.fc[f] = self.create_classes_dictionary()
+            self.fc[f][cat] = 1
+
         else:
-            self.fc[f][cat] = self.fc[f][cat] + 1
-            #print(self.fc)
+            self.fc[f][cat] += 1
 
     def incc(self, cat):
-        self.cc[cat] = self.cc[cat] + 1
-        #print(self.cc)
+        self.cc[cat] += 1
 
     def fcount(self, f, cat):
         return self.fc[f][cat]
@@ -46,8 +54,7 @@ class Classifier():
         return self.cc[cat]
 
     def totalcount(self):
-        #TODO iterate over all classes
-        return self.cc['Good'] + self.cc['Bad']
+        return sum(self.cc.itervalues())
 
     def train(self, item, cat):
         wlist = self.getfeatures(item)
@@ -66,7 +73,7 @@ class Classifier():
 
     def prob(self, item, cat):
         product = 1
-        #use weightedprob here to avoid * 0
+        """use weightedprob here to avoid * 0"""
         for f in self.getfeatures(item):
             product *= self.weightedprob(f, cat)
         return (product * self.cc[cat]) / self.totalcount()
@@ -95,14 +102,14 @@ def assignment_2_2_test_spam():
 
     test_data = 'the money jumps'
 
-    classifier = Classifier(getwords)
+    classifier = Classifier(getwords, ['Good', 'Bad'])
     for keyVal in training_data:
         classifier.train(keyVal[0], keyVal[1])
 
     classification = classifier.decide(test_data)
     prob_good = classifier.prob(test_data, 'Good')
     prob_bad = classifier.prob(test_data, 'Bad')
-    
+
     print("'%s' was classified as '%s' (good: %f / bad: %f)" % (test_data, classification, prob_good, prob_bad))
 
 
@@ -110,7 +117,7 @@ def assignment_2_2_test_spam():
 def first_tests():
     #print getwords("1 12 123 Hallo mehr WÖÖÖ?ÖRTtörür 1ß2ß3ß4 :hey/srjsrtz lllllllllllllllllllllllllllllllllllllllllllllllllllllllllangeswort")
 
-    classinst = Classifier(getwords)
+    classinst = Classifier(getwords, ['Good', 'Bad'])
     classinst.incf('horst', 'Bad')
     classinst.incf('horst', 'Bad')
     classinst.incf('horst', 'Good')
@@ -123,7 +130,7 @@ def first_tests():
     classinst.train('RoRoRororksgki Money kagga kaggagaga tatotu 1', 'Good')
     classinst.train('Penis Viagra Free Money Money Money Yo', 'Bad')
     # Money kommt nur einmal rein (wegen dict)
-    classinst.train('Money Boy Penis Yo', 'Bad')
+    classinst.train('Money Cash Penis Yo', 'Bad')
     classinst.train('Penis', 'Bad')
     #pp.pprint(classinst.fc)
     #pp.pprint(classinst.fprob('money', 'Bad'))
