@@ -8,7 +8,7 @@ Für jeden Trainingsdatensatz mit einer Menge von Variablen x muss jeder Wert ei
     # und wähle jeweils die Klasse mit größten Wahrscheinlichkeit aus
     P(C_i | x)
 
-Die Berechnung erfolgt über die Bayes Formel 
+Die Berechnung erfolgt über die Bayes Formel  
 ![Bayes Formel](answers_partial/1.4.1_bayes_formel.png)
 
 Mit:
@@ -73,8 +73,8 @@ p(D) bleibt dabei immer gleich.
 Der Naive Bayes Classifier geht davon aus, dass alle Variablen unabhängig voneinander sind.
 Wären sie abhängig, würde sich die Likelihood Funktion weitaus schwerer berechnen lassen.
 
-Mit der vereinfachten Annahme lässt sich alles auf die Formel (2) reduzieren.
-![Formel 2](answers_partial/1.4.3_formel2.png)
+Mit der vereinfachten Annahme lässt sich alles auf die Formel (2) reduzieren.  
+![Formel 2](answers_partial/1.4.3_formel2.png)  
 (wobei die Evidenz p(D) vernachlässigt werden kann)
 
 ## 1.4.4 Ist diese Annahme im Fall der Dokumentklassifikation tatsächlich gegeben?
