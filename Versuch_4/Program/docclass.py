@@ -4,16 +4,19 @@ import pprint as pp
 
 
 def getwords(doc, mi=3, ma=20):
-    doc = doc.lower()
-    nonAlpha = re.compile('[^\wßäöüÄÖÜ]')
+    doc = doc.lower() #.encode('utf-8')
+ #   doc = re.sub(r'[^\x00-\x7F]+', '', doc)
+
+    #nonAlpha = re.compile('[^\wßäöüÄÖÜ]')
+    nonAlpha = re.compile('[^a-zäöüß]')
     doc = nonAlpha.sub(' ', doc)
-    #print(doc)
+
     clean = []
     clean = doc.split()
     #pp.pprint(clean)
     worddict = {}
     for w in clean:
-        if len(w) >= mi and len(w) <= ma:
+        if mi <= len(w) <= ma:
             worddict[w] = 1
     #pp.pprint(worddict)
     return worddict
@@ -22,7 +25,6 @@ def getwords(doc, mi=3, ma=20):
 class Classifier():
     def __init__(self, getfeatures, classes):
         self.fc = {}
-        """self.cc = {'Good': 0, 'Bad': 0}"""
         self.classes = classes
         self.cc = self.create_classes_dictionary()
 
@@ -48,7 +50,7 @@ class Classifier():
         self.cc[cat] += 1
 
     def fcount(self, f, cat):
-        return self.fc[f][cat]
+        return self.fc.get(f, {cat: 0})[cat]
 
     def catcount(self, cat):
         return self.cc[cat]
@@ -63,12 +65,15 @@ class Classifier():
             self.incc(cat)
 
     def fprob(self, f, cat):
-        return ((float)(self.fc[f][cat]) / self.cc[cat])
+        return ((float)(self.fc.get(f, {cat: 0})[cat]) / self.cc[cat])
 
     def weightedprob(self, f, cat):
         #TODO: an initprob rumspielen        
         initprob = 0.5
-        count = self.fcount(f, 'Good') + self.fcount(f, 'Bad')
+        count = 0
+        for cls in self.classes:
+            count += self.fcount(f, cls)
+
         return (initprob + count * self.fprob(f, cat)) / (1 + count)
 
     def prob(self, item, cat):
@@ -79,10 +84,16 @@ class Classifier():
         return (product * self.cc[cat]) / self.totalcount()
 
     def decide(self, item):
-        if self.prob(item, 'Good') > self.prob(item, 'Bad'):
-            return 'Good'
-        else:
-            return 'Bad'
+        max_val = -1
+        max_cls = ''
+
+        for cls in self.classes:
+            prob = self.prob(item, cls)
+            if prob > max_val:
+                max_val = prob
+                max_cls = cls
+
+        return max_cls
 
 
 
@@ -97,10 +108,10 @@ def assignment_2_2_test_spam():
         ['meeting with your superstar', 'Bad'],
         ['money like water', 'Bad'],
         ['Nigeria prince scam', 'Bad'],
-        ['this is a good one', 'Good']
+        ['this übel is a good one', 'Good']
     ];
 
-    test_data = 'the money jumps'
+    test_data = 'the money jumps übel'
 
     classifier = Classifier(getwords, ['Good', 'Bad'])
     for keyVal in training_data:
@@ -111,7 +122,6 @@ def assignment_2_2_test_spam():
     prob_bad = classifier.prob(test_data, 'Bad')
 
     print("'%s' was classified as '%s' (good: %f / bad: %f)" % (test_data, classification, prob_good, prob_bad))
-
 
 
 def first_tests():
@@ -143,3 +153,7 @@ def first_tests():
 if __name__ == "__main__":
     #first_tests()
     assignment_2_2_test_spam()
+    pass
+
+    print getwords('"Günther Jauch": Isis-Vormarsch – "Das Problem liegt in der Türkei" Günther Jauch diskutierte den Vormarsch islamistischer Gotteskrieger im Irak. Norbert Röttgen kritisierte das Wegschauen der Deutschen, ein Experte lenkte den Blick auf die Türkei.')
+
