@@ -10,13 +10,9 @@ Hierbei werden die Worte auf thematisch Relevante Worte reduziert.
 Dabei fallen Füllworte weg, und eine Gewichtung für bestimmte Keywords kann gelegt werden.
 
 ###Wie multipliziert man die Matrix A mit dem Vektor v?
-[Multiplikation Matrix A mit Vektor v](answers_partial/matrix_multiply.png)
+![Multiplikation Matrix A mit Vektor v](answers_partial/matrix_multiply.png)
 
-           ( a00*v0 + a01*v1 + a02*v2 + a03*v3 )
-    A * v= ( a10*v0 + a11*v1 + a12*v2 + a13*v3 )
-           ( a20*v0 + a21*v1 + a22*v2 + a23*v3 )
-
-[Ergebnis](answers_partial/multipliziert.gif)
+![Ergebnis](answers_partial/multipliziert.gif)
 
 Bei der NNMF wird die Rechnung aufgeteilt.
 A ist hierbei:
