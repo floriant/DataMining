@@ -4,6 +4,7 @@ Created on Thu Jun 26 15:16:33 2014
 """
 import re
 import pprint as pp
+import newsfeatures21 as n21
 
 #http://www.nltk.org/install.html
 from nltk.corpus import stopwords
@@ -19,8 +20,8 @@ articletitles=
 [ u 'Obama stokes racial passions,police anger' , u 'Mayors , rabbis arrested in NJ ' , . . .
 """
 allwords= {}
-articlewords = {}
-articletitles = {}
+articlewords = []
+articletitles = []
 
 
 def separatewords(text) :
@@ -29,29 +30,52 @@ def separatewords(text) :
 
 def getarticlewords():
     # init
+
+    global allwords
+    global articlewords
+    global articletitles
     allwords= {}
-    articlewords = {}
-    articletitles = {}    
+    articlewords = []
+    articletitles = []    
     
-    #allfeeds = scrape_feedlist() 
+    #load from disc
+    allfeeds = n21.scrape_feedlist()         
+    #reloade from web
+    #allfeeds = n21.scrape_feedlist(False) 
     #local Test
-    allfeeds = { 'War': 'War: tank bomb obama', 
-                'Crisis': 'Crisis: Obama, bank collaps',
-                'Soccer': 'Soccer: Goal, Win, Ball'}
+    #allfeeds = { 'War': 'War: tank bomb obama', 'Crisis': 'Crisis: Obama, bank collaps', 'Soccer': 'Soccer: Goal, Win, Ball'}
     
     #add words to dicts
+    '''for key, value in allfeeds.items():
+        for item in separatewords(value) :                
+            #print item
+            if item in allwords :
+                allwords[item] = allwords[item] + 1
+            else:
+                allwords[item] = 1;
+    '''            
+    #add titles and words
     for key, value in allfeeds.items():
-        print 'Feeds: ', key, value
+        articletitles.append(key)
+        words = {}
         for item in separatewords(value) :
-            #print value
+            #add allwords            
             if item in allwords :
                 allwords[item] = allwords[item] + 1
             else:
                 allwords[item] = 1;
                 
+            #add articlewords
+            if item in words :
+                words[item] = words[item] + 1
+            else:
+                words[item] = 1;
+        articlewords.append(words)
+    
         
 if __name__ == "__main__":
     getarticlewords()
+    print "-" * 20
     pp.pprint(allwords)
     print "-" * 20
     pp.pprint(articlewords)
