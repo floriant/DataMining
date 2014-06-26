@@ -1,7 +1,7 @@
 import feedparser
 import docclass as dc
 import pprint as pp
-
+import pickle as pickle
 
 def stripHTML(h):
     p = ''
@@ -46,6 +46,7 @@ countnews['test'] = 0
 test_news = {'tech': [], 'nontech': []}
 
 classifier = dc.Classifier(dc.getwords, ['tech', 'nontech'])
+classifier.initprob = 0.5
 
 print "--------------------News from trainTech------------------------"
 for feed in trainTech:
@@ -96,7 +97,15 @@ print 'Number of used trainings samples in categorie notech', countnews['nontech
 print 'Number of used test samples', countnews['test']
 print '-' * 64, "\n"
 
-pp.pprint(test_news)
+
+serialized_classifier_filename = 'classifier.serialized'
+serialized_classifier = open(serialized_classifier_filename, 'wb')
+pickle.dump(classifier, serialized_classifier)
+serialized_classifier.close()
+print 'Learned classifier was saved to file ' + serialized_classifier_filename
+print '-' *64, "\n", '-'*64
+
+#pp.pprint(test_news)
 
 print '-' *64, "\n", '-'*64
 
