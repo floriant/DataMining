@@ -78,7 +78,7 @@ H*W=A
     print x1*x2t
 
 
-(arrays casten und dann .dot ist doch schöner oder?)
+(array mit .dot oder auf matrix casten)
     
 	import numpy as np
     x = np.array( ((3,2,1), (1,0,2)) )
