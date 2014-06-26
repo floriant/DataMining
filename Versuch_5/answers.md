@@ -1,6 +1,6 @@
 ﻿#Links
 
-http://books.google.de/books?id=nAIkkWi1yJEC&lpg=PT276&ots=F4tDaGKZ-U&dq=nichtnegative%20matrixfaktorisierung&hl=de&pg=PT283#v=onepage&q=nichtnegative%20matrixfaktorisierung&f=false
+http://books.google.de/books?id=nAIkkWi1yJEC&lpg=PT276&ots=F4tDaGKZ-U&dq=nichtnegative%20matrixfaktorisierung&hl=de&pg=PT276#v=onepage&q=nichtnegative%20matrixfaktorisierung&f=false
 
 #Fragen zu Versuch 5: 
 ##Merkmalsextraktion mit der Nicht-Negativen Matrixfaktorisierung
