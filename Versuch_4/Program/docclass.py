@@ -4,16 +4,13 @@ import pprint as pp
 
 
 def getwords(doc, mi=3, ma=20):
-    doc = doc.lower() #.encode('utf-8')
- #   doc = re.sub(r'[^\x00-\x7F]+', '', doc)
+    doc = doc.lower()
+    #doc = re.sub(r'[^\x00-\x7F]+', '', doc)
 
-    #nonAlpha = re.compile('[^\wßäöüÄÖÜ]')
     nonAlpha = re.compile('[^a-zäöüß]')
     doc = nonAlpha.sub(' ', doc)
 
-    clean = []
     clean = doc.split()
-    #pp.pprint(clean)
     worddict = {}
     for w in clean:
         if mi <= len(w) <= ma:
@@ -41,10 +38,8 @@ class Classifier():
     def incf(self, f, cat):
         if f not in self.fc:
             self.fc[f] = self.create_classes_dictionary()
-            self.fc[f][cat] = 1
 
-        else:
-            self.fc[f][cat] += 1
+        self.fc[f][cat] += 1
 
     def incc(self, cat):
         self.cc[cat] += 1
@@ -67,9 +62,8 @@ class Classifier():
     def fprob(self, f, cat):
         return ((float)(self.fc.get(f, {cat: 0})[cat]) / self.cc[cat])
 
-    def weightedprob(self, f, cat):
-        #TODO: an initprob rumspielen        
-        initprob = 0.5
+    #TODO: an initprob rumspielen
+    def weightedprob(self, f, cat, initprob=0.5):
         count = 0
         for cls in self.classes:
             count += self.fcount(f, cls)
@@ -108,10 +102,10 @@ def assignment_2_2_test_spam():
         ['meeting with your superstar', 'Bad'],
         ['money like water', 'Bad'],
         ['Nigeria prince scam', 'Bad'],
-        ['this übel is a good one', 'Good']
+        ['this is a good one', 'Good']
     ];
 
-    test_data = 'the money jumps übel'
+    test_data = 'the money jumps'
 
     classifier = Classifier(getwords, ['Good', 'Bad'])
     for keyVal in training_data:
