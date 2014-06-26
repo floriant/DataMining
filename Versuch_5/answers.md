@@ -84,6 +84,7 @@ H*W=A
     x = np.array( ((3,2,1), (1,0,2)) )
     y = np.array( ((1,2), (0,1), (4,0)) )
     print np.dot(x,y)
+	print np.mat(x) * np.mat(y)
 
 
 ####elementweise multipliziert?**
@@ -106,3 +107,11 @@ H*W=A
     xTrans = np.transpose(xTest)
     print xTest
     print xTrans
+
+(geht auch mit .T)
+
+	import numpy as np
+	import pprint as pp
+	x = np.array( ((1,2,3), (4,5,6)) )
+	pp.pprint(x)
+	pp.pprint(x.T)
