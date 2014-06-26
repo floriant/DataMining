@@ -78,6 +78,8 @@ def scrape_feedlist(load_from_disk=True):
 if __name__ == "__main__":
     allfeeds = scrape_feedlist(load_from_disk=True)
 
-    pp.pprint(allfeeds)
+    #pp.pprint(allfeeds)
+    for key, value in allfeeds.items():
+        print value
 
     pass
