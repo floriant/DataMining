@@ -25,12 +25,21 @@ A ist hierbei:
 Aus dem Skript, die Matrix H
 
 Beschreibt aus welchen Worten die Merkmale gebildet werden.
+Ein Merkmal ist hierbei, beispielsweise ein Topic. 
+Jede zeile ist ein Topic, und jede Spalte ist ein Wort.
+Nun wird jeder Topic/Wort kombination ein Gewicht zugeordnet.
+Beispiel: Kochen: Salz 5, Auto 0
 
 ####Gewichtsmatrix
 
 Aus dem Skript, die Matrix W
 
 Beschreibt mit welchem Gewicht die Merkmale in den jeweiligen Artikeln auftreten.
+Jede Zeile ist ein Artikel und jede Spalte ein Merkmal.
+Jeder Artikel/Merkmal Kombination wird nun eine Gewichtung zugeordnet.
+Beispiel:
+"Wie Kochen unser leben bereichert" : Kochen 5
+"Warum Autos noch nicht fliegen" : Kochen 0
 
 ###Wie definieren die Zeilen der Merkmalsmatrix die einzelnen Merkmale (Topics)?
 
@@ -39,10 +48,20 @@ Bsp.:{Obama, visit, Germany}
 Dieser Vektor enthält die Wörter aus welchen die Merkmale gebildet werden.
 Es werden also Merkmale auf Wörter abgebildet.
 
+Topic == Merkmal
+Jede Zeile ist ein Topic, jede Spalte ist ein Wort zu diese Topic.
+Die Werte geben die Wichtigkeit eines Wortes zu einem Topic an. 
+Beispiel: Topic: Spielkonsolen Schlüsselwort mit hohem Wert: "Controller"
+
 ###Was definieren die Zeilen der Gewichtungsmatrix?
 
-Sie geben eine Gewichtung der Merkmale für jeden Artikel an.
+Die Zeilen der Gewichtungsmatrix bildet die Artikel ab, die Spalten sind Merkmale.
+Jeder Wert eines Merkmals zu einem Artikel gibt dessen Gewicht im Artikel an.
+Beispiel: Artikel: Wie man Sushi kocht! Merkmal: Kochen -> gewicht hoch
 
+H*W=A
+
+![Multiplikation von H mit W](answers_partial/WHfactor.png)
 
 ###Wie werden in Numpy zwei Arrays (Typ numpy.array)
 ####im Sinne der Matrixmultiplikation miteinander multipliziert?
@@ -55,13 +74,12 @@ Sie geben eine Gewichtung der Merkmale für jeden Artikel an.
     print x1*x2t
 
 
-(array mit .dot oder auf matrix casten)
+(arrays casten und dann .dot ist doch schöner oder?)
     
 	import numpy as np
     x = np.array( ((3,2,1), (1,0,2)) )
     y = np.array( ((1,2), (0,1), (4,0)) )
     print np.dot(x,y)
-	print np.mat(x) * np.mat(y)
 
 
 ####elementweise multipliziert?**
@@ -73,7 +91,6 @@ Sie geben eine Gewichtung der Merkmale für jeden Artikel an.
 
 (elementweise ist default bei array multiplikation)
     
-	import numpy as np
 	x = np.array( ((3,2,1), (1,0,2)) )
     y = np.array( ((1,2,3), (4,5,6)) )
     print x * y
@@ -85,12 +102,3 @@ Sie geben eine Gewichtung der Merkmale für jeden Artikel an.
     xTrans = np.transpose(xTest)
     print xTest
     print xTrans
-	
-(oder array.T )
-    
-	import numpy as np
-	import pprint as pp
-    x = np.array( ((1,2,3), (4,5,6)) )
-    pp.pprint(x)
-    pp.pprint(x.T)	
-
