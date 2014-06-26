@@ -105,7 +105,19 @@ serialized_classifier.close()
 print 'Learned classifier was saved to file ' + serialized_classifier_filename
 print '-' *64, "\n", '-'*64
 
-#pp.pprint(test_news)
+print "These are the results:"
+"""
+test_news is a dictionary with this structure:
+test_news = {
+    class: [
+        [ fulltext, probability(tech), probability(nontech) ]
+        ..
+    ],
+    ...
+}
+"""
+pp.pprint(test_news)
+print '-' *64, "\n", '-'*64
 
 print '-' *64, "\n", '-'*64
 
