@@ -16,7 +16,7 @@ Dabei fallen Füllworte weg, und eine Gewichtung für bestimmte Keywords kann ge
     A * v= ( a10*v0 + a11*v1 + a12*v2 + a13*v3 )
            ( a20*v0 + a21*v1 + a22*v2 + a23*v3 )
 
-[Ergebniss](answers_partial/multipliziert.gif)
+[Ergebnis](answers_partial/multipliziert.gif)
 
 Bei der NNMF wird die Rechnung aufgeteilt.
 A ist hierbei:
