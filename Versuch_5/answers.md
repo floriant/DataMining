@@ -55,12 +55,13 @@ Sie geben eine Gewichtung der Merkmale für jeden Artikel an.
     print x1*x2t
 
 
-(arrays casten und dann .dot ist doch schöner oder?)
+(array mit .dot oder auf matrix casten)
     
 	import numpy as np
     x = np.array( ((3,2,1), (1,0,2)) )
     y = np.array( ((1,2), (0,1), (4,0)) )
     print np.dot(x,y)
+	print np.mat(x) * np.mat(y)
 
 
 ####elementweise multipliziert?**
@@ -72,6 +73,7 @@ Sie geben eine Gewichtung der Merkmale für jeden Artikel an.
 
 (elementweise ist default bei array multiplikation)
     
+	import numpy as np
 	x = np.array( ((3,2,1), (1,0,2)) )
     y = np.array( ((1,2,3), (4,5,6)) )
     print x * y
@@ -83,3 +85,12 @@ Sie geben eine Gewichtung der Merkmale für jeden Artikel an.
     xTrans = np.transpose(xTest)
     print xTest
     print xTrans
+	
+(oder array.T )
+    
+	import numpy as np
+	import pprint as pp
+    x = np.array( ((1,2,3), (4,5,6)) )
+    pp.pprint(x)
+    pp.pprint(x.T)	
+
