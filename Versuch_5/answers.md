@@ -56,7 +56,8 @@ Sie geben eine Gewichtung der Merkmale für jeden Artikel an.
 
 
 (arrays casten und dann .dot ist doch schöner oder?)
-    import numpy as np
+    
+	import numpy as np
     x = np.array( ((3,2,1), (1,0,2)) )
     y = np.array( ((1,2), (0,1), (4,0)) )
     print np.dot(x,y)
@@ -70,7 +71,8 @@ Sie geben eine Gewichtung der Merkmale für jeden Artikel an.
     print np.dot(x,y)
 
 (elementweise ist default bei array multiplikation)
-    x = np.array( ((3,2,1), (1,0,2)) )
+    
+	x = np.array( ((3,2,1), (1,0,2)) )
     y = np.array( ((1,2,3), (4,5,6)) )
     print x * y
 
