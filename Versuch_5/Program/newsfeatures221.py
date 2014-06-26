@@ -7,6 +7,8 @@ import pprint as pp
 import newsfeatures21 as n21
 
 #http://www.nltk.org/install.html
+# >>> import nltk
+# >>> nltk.download() irgendwo im zweiten Reiter 'stopwords'
 from nltk.corpus import stopwords
 sw = stopwords.words( 'english' )
 
