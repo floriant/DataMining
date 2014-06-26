@@ -19,10 +19,10 @@ def stripHTML(h):
 
 trainTech = [
     'http://rss.chip.de/c/573/f/7439/index.rss',
-     'http://feeds.feedburner.com/netzwelt',
-     'http://rss1.t-online.de/c/11/53/06/84/11530684.xml',
-     'http://www.computerbild.de/rssfeed_2261.xml?node=13',
-     'http://www.heise.de/newsticker/heise-top-atom.xml'
+    'http://feeds.feedburner.com/netzwelt',
+    'http://rss1.t-online.de/c/11/53/06/84/11530684.xml',
+    'http://www.computerbild.de/rssfeed_2261.xml?node=13',
+    'http://www.heise.de/newsticker/heise-top-atom.xml'
 ]
 
 trainNonTech = [
