@@ -73,6 +73,11 @@ Sie geben eine Gewichtung der Merkmale für jeden Artikel an.
     y = np.arange(3)
     print np.dot(x,y)
 
+(elementweise ist default bei array multiplikation)
+    x = np.array( ((3,2,1), (1,0,2)) )
+    y = np.array( ((1,2,3), (4,5,6)) )
+    print x * y
+
 ###Wie wird die Transponierte eines Numpy-Arrays berechnet?
 
     import numpy as np
