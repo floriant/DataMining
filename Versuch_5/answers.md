@@ -1,4 +1,4 @@
-#Fragen zu Versuch 5: 
+﻿#Fragen zu Versuch 5: 
 ##Merkmalsextraktion mit der Nicht-Negativen Matrixfaktorisierung
 
 ###Was versteht man unter Artikel/Wort-Matrix? Wie sieht diese im aktuellen Versuch aus?
@@ -12,9 +12,11 @@ Dabei fallen Füllworte weg, und eine Gewichtung für bestimmte Keywords kann ge
 ###Wie multipliziert man die Matrix A mit dem Vektor v?
 [Multiplikation Matrix A mit Vektor v](answers_partial/matrix_multiply.png)
 
-        ( a00*v0 + a01*v1 + a02*v2 + a03*v3 )
-    A = ( a10*v0 + a11*v1 + a12*v2 + a13*v3 )
-        ( a20*v0 + a21*v1 + a22*v2 + a23*v3 )
+           ( a00*v0 + a01*v1 + a02*v2 + a03*v3 )
+    A * v= ( a10*v0 + a11*v1 + a12*v2 + a13*v3 )
+           ( a20*v0 + a21*v1 + a22*v2 + a23*v3 )
+
+[Ergebniss](answers_partial/multipliziert.gif)
 
 Bei der NNMF wird die Rechnung aufgeteilt.
 A ist hierbei:
