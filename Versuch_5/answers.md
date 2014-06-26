@@ -59,6 +59,13 @@ Sie geben eine Gewichtung der Merkmale für jeden Artikel an.
     print x1*x2t
 
 
+(arrays casten und dann .dot ist doch schöner oder?)
+    import numpy as np
+    x = np.array( ((3,2,1), (1,0,2)) )
+    y = np.array( ((1,2), (0,1), (4,0)) )
+    print np.dot(x,y)
+
+
 ####elementweise multipliziert?**
 
     import numpy as np
