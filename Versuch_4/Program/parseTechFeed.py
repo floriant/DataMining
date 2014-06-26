@@ -46,6 +46,7 @@ countnews['test'] = 0
 test_news = {'tech': [], 'nontech': []}
 
 classifier = dc.Classifier(dc.getwords, ['tech', 'nontech'])
+classifier.initprob = 0.5
 
 print "--------------------News from trainTech------------------------"
 for feed in trainTech:

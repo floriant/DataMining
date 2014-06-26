@@ -24,6 +24,7 @@ class Classifier():
         self.fc = {}
         self.classes = classes
         self.cc = self.create_classes_dictionary()
+        self.initprob = 0.5
 
         self.getfeatures = getfeatures
 
@@ -64,11 +65,14 @@ class Classifier():
 
     #TODO: an initprob rumspielen
     def weightedprob(self, f, cat, initprob=0.5):
+        if initprob != 0.5:
+            self.initprob = 0.5
+
         count = 0
         for cls in self.classes:
             count += self.fcount(f, cls)
 
-        return (initprob + count * self.fprob(f, cat)) / (1 + count)
+        return (self.initprob + count * self.fprob(f, cat)) / (1 + count)
 
     def prob(self, item, cat):
         product = 1
@@ -108,6 +112,9 @@ def assignment_2_2_test_spam():
     test_data = 'the money jumps'
 
     classifier = Classifier(getwords, ['Good', 'Bad'])
+    """Initprob can be used to decrease or increase the influence of not-learned words"""
+    classifier.initprob = 0.5
+
     for keyVal in training_data:
         classifier.train(keyVal[0], keyVal[1])
 
