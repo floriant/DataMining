@@ -4,18 +4,17 @@ import pprint as pp
 
 
 def getwords(doc, mi=3, ma=20):
-    doc = doc.lower()
-    #doc = re.sub(r'[^\x00-\x7F]+', '', doc)
-
+    #remove unwanted characters
     nonAlpha = re.compile('[^a-zäöüß]')
-    doc = nonAlpha.sub(' ', doc)
+    doc = nonAlpha.sub(' ', doc.lower())
 
+    #create a dictionary containing each word
     clean = doc.split()
     worddict = {}
     for w in clean:
         if mi <= len(w) <= ma:
             worddict[w] = 1
-    #pp.pprint(worddict)
+
     return worddict
 
 
@@ -28,6 +27,9 @@ class Classifier():
 
         self.getfeatures = getfeatures
 
+    #creates a base dictionary to be used for each word with the classes
+    #pro: the checks if a class exists in the dictionary are not needed
+    #con: slight increase of memory usage
     def create_classes_dictionary(self):
         #create_classes_dictionary(['Good', 'Bad']) => {'Good': 0, 'Bad': 0}
         result = {}
@@ -36,34 +38,42 @@ class Classifier():
 
         return result
 
+    #increase the passed feature's counter for the passed category
     def incf(self, f, cat):
         if f not in self.fc:
             self.fc[f] = self.create_classes_dictionary()
 
         self.fc[f][cat] += 1
 
+    #increase the category counter for the passed category
     def incc(self, cat):
         self.cc[cat] += 1
 
+    #returns the passed feature's counter for the passed category
     def fcount(self, f, cat):
+        #get is used because it provides a default if the value does not exist
         return self.fc.get(f, {cat: 0})[cat]
 
+    #returns the counter of the passed category
     def catcount(self, cat):
         return self.cc[cat]
 
+    #returns the sum of all elements
     def totalcount(self):
         return sum(self.cc.itervalues())
 
+    #train a new element and add it to the passed category
     def train(self, item, cat):
         wlist = self.getfeatures(item)
         for w in wlist:
             self.incf(w, cat)
             self.incc(cat)
 
+    #return the probability for the passed feature for the passed category
     def fprob(self, f, cat):
         return ((float)(self.fc.get(f, {cat: 0})[cat]) / self.cc[cat])
 
-    #TODO: an initprob rumspielen
+    #calculate the weighted probability (avoids 0 for non-exististing words)
     def weightedprob(self, f, cat, initprob=0.5):
         if initprob != 0.5:
             self.initprob = 0.5
@@ -74,13 +84,15 @@ class Classifier():
 
         return (self.initprob + count * self.fprob(f, cat)) / (1 + count)
 
+    #return the weighteted probability for the passed feature for the passed category
     def prob(self, item, cat):
         product = 1
-        """use weightedprob here to avoid * 0"""
+
         for f in self.getfeatures(item):
             product *= self.weightedprob(f, cat)
         return (product * self.cc[cat]) / self.totalcount()
 
+    #return the class the fits the passed item best
     def decide(self, item):
         max_val = -1
         max_cls = ''
@@ -94,7 +106,7 @@ class Classifier():
         return max_cls
 
 
-
+#Exercise 2.2
 def assignment_2_2_test_spam():
     training_data = [
         ['nobody owns the water', 'Good'],
@@ -123,32 +135,6 @@ def assignment_2_2_test_spam():
     prob_bad = classifier.prob(test_data, 'Bad')
 
     print("'%s' was classified as '%s' (good: %f / bad: %f)" % (test_data, classification, prob_good, prob_bad))
-
-
-def first_tests():
-    #print getwords("1 12 123 Hallo mehr WÖÖÖ?ÖRTtörür 1ß2ß3ß4 :hey/srjsrtz lllllllllllllllllllllllllllllllllllllllllllllllllllllllllangeswort")
-
-    classinst = Classifier(getwords, ['Good', 'Bad'])
-    classinst.incf('horst', 'Bad')
-    classinst.incf('horst', 'Bad')
-    classinst.incf('horst', 'Good')
-    classinst.incc('Good')
-    classinst.incc('Bad')
-    classinst.incc('Bad')
-    #print(classinst.fcount('horst', 'Bad'))
-    #print(classinst.catcount('Good'))
-    #print(classinst.totalcount())
-    classinst.train('RoRoRororksgki Money kagga kaggagaga tatotu 1', 'Good')
-    classinst.train('Penis Viagra Free Money Money Money Yo', 'Bad')
-    # Money kommt nur einmal rein (wegen dict)
-    classinst.train('Money Cash Penis Yo', 'Bad')
-    classinst.train('Penis', 'Bad')
-    #pp.pprint(classinst.fc)
-    #pp.pprint(classinst.fprob('money', 'Bad'))
-    #pp.pprint(classinst.weightedprob('money', 'Bad'))
-    pp.pprint(classinst.prob('Penis', 'Good'))
-    pp.pprint(classinst.prob('Penis', 'Bad'))
-    pp.pprint(classinst.decide('RoRoRororksgki Money kagga kaggagaga tatotu 1'))
 
 
 if __name__ == "__main__":
