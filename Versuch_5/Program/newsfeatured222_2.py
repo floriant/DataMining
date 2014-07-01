@@ -8,6 +8,9 @@ articlewords[3] = { 'reboot':1, 'four':2, 'accused': 2}
 articlewords[4] = {'aided':1, 'actionfor': 1, 'ambitionsthe':1, 'reboot':1, 'four':2, 'accused': 2, 'into': 1, 'racism': 2, 'debate':1}
 print allwords
 
+wordvec = {}
+wordInArt = {}
+
 
 def makematrix(allw, articlew):
     # Removing Words with less tan 4 occourences
@@ -52,15 +55,27 @@ def makematrix(allw, articlew):
     print(trimmedPercent)
 
     #Wir verwenden anstelle listen Dictionarys
-    #Wenn man Listen übergibt verliert man die reihenfolge der worte
+    #Wenn man Listen uebergibt verliert man die reihenfolge der worte
     #durch dictionarys kann man jederzeit eine semantische zuordnung vornehmen.
+
+    print('######################################################')
+    print('######################################################')
+    print('######################################################')
+    print('######################################################')
 
     # Create Article/Word Matrix
     awMatrix = {}
     for article in articlewords:
+        print(article)
+        awMatrix[article] = {}
+        for wordAW in trimmedPercent:
+            #print(wordAW)
+            #print(allwords[wordAW])
+            awMatrix[article][wordAW] = allwords[wordAW]
+    pp.pprint(awMatrix)
 
-        for wordAW in allwords:
-            articleKey = [wordAW]
+    wordvec = trimmedPercent
+    wordInArt = awMatrix
 
 makematrix(allwords, articlewords)
 print("end")
