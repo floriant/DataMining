@@ -25,7 +25,7 @@ print "allwords:\n", allwords, "\narticlewords:\n", articlewords, "articletitles
 #2.2.2
 result = nf.makematrix(allwords, articlewords, articletitles)
 wordVec, wordInArt, articletitles = result
-print "wordVe:\n", wordVec, "\nwordInArt:\n", wordInArt, "articletitles:\n", articletitles
+print "wordVe:\n", wordVec, "\nwordInArt:\n", wordInArt, "\narticletitles:\n", articletitles
 
 """
 #2.2.3
