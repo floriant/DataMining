@@ -1,13 +1,15 @@
 import pprint as pp
+import numpy as np
 
 # Example Data for Testing
-allwords = {'aided':3, 'actionfor': 2, 'ambitionsthe':2, 'reboot':4, 'four':8, 'accused': 10, 'into': 3, 'racism': 4, 'debate':3}
+allwords = {'aided':3, 'actionfor': 3, 'ambitionsthe':2, 'reboot':4, 'four':8, 'accused': 10, 'into': 3, 'racism': 4, 'debate':3}
 articlewords = {}
 articlewords[0] = {'accused': 1, 'into': 1, 'racism': 2, 'debate': 1}
 articlewords[1] = {'accused': 1, 'aided': 1, 'actionfor': 2, 'ambitionsthe': 1, 'reboot': 1, 'four': 2}
 articlewords[2] = {'aided':1, 'ambitionsthe':1, 'reboot':1, 'four':2, 'into': 1, 'debate':1}
 articlewords[3] = { 'reboot':1, 'four':2, 'accused': 2}
 articlewords[4] = {'aided':1, 'actionfor': 1, 'ambitionsthe':1, 'reboot':1, 'four':2, 'accused': 2, 'into': 1, 'racism': 2, 'debate':1}
+articlewords[5] = {'actionfor': 1}
 
 # Global Variables used for article Word Matrix
 wordvec = {}
@@ -23,6 +25,9 @@ wordInArt = {}
 # The wordvec and wordInArt results, will be written as Dict.
 # This way no Information about the Words gets lost.
 def makematrix(allw, articlew):
+    # Declaring Global Vars
+    global wordvec
+    global wordInArt
 
     # Removing words that have a overall Wordcount >= 4
     trimmedV = {}
@@ -61,13 +66,22 @@ def makematrix(allw, articlew):
     # We Loop trough the articlewords for vector i
     # We Loop trough trimmedPercent for vector j
     awMatrix = {}
+    valueCount = 0
     for article in articlewords:
         awMatrix[article] = {}
+        valueCount = 0
         for wordAW in trimmedPercent:
+            wordTrashhold = wordAW
             if wordAW in articlewords[article]:
                 awMatrix[article][wordAW] = articlewords[article][wordAW]
+                valueCount = valueCount + 1
             else:
                 awMatrix[article][wordAW] = 0
+
+        # Checking if the Article has only 0 values
+        # then pop the Artice out of the Dict
+        if valueCount == 0:
+            awMatrix.pop(article)
 
     # Printing the awMatrix for Debugging Purposes
     print('###########################################')
@@ -112,6 +126,26 @@ def makematrix(allw, articlew):
     file.write(wordInArtText)
     file.close()
 
+# transformMatrix function to Transform the wordInArt Dict to a Numpy Matrix
+#
+# Params:
+# awDict - Representation of the wordInArt Dict
+def transformMatrix(awDict):
+    matrixList = []
+    # Iterating rough awDict and Converting Data into a nested List
+    for row in awDict:
+        rowList = []
+        print(row)
+        for i, col in enumerate(awDict[row]):
+            rowList.append(awDict[row][col])
+        matrixList.append(rowList)
+    # Transforming nested List to an numpy Matrix
+    awNumpyMatrix = np.matrix(matrixList)
+    print('###########################################')
+    print('###### The Article/Word as np.matrix ######')
+    print('###########################################')
+    print(awNumpyMatrix)
 
 makematrix(allwords, articlewords)
+transformMatrix(wordInArt)
 print("end")
