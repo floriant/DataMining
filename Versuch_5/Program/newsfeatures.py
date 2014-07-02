@@ -161,14 +161,14 @@ def makematrix(allw, articlew, articletitles):
     # artP: Percent per Article occurence
     # percentage: Percentage counting Value
     # trimmedPercent: Copy of trimmedV since Python doesnt allow changing Dicts in a Loop
-    artP = (100 / len(articlew))
+    artP = (100 / float(len(articlew)))
     percentage = 0
     trimmedPercent = trimmedV.copy()
     for wordV in trimmedV:
         for article in articlew:
             if articlew[article].has_key(wordV):
                 percentage += artP
-        if percentage < 60:
+        if percentage > 60:
             trimmedPercent.pop(wordV)
         percentage = 0
 
