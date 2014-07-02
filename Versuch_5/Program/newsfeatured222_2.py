@@ -141,7 +141,6 @@ def transformMatrix(awDict):
     # Iterating rough awDict and Converting Data into a nested List
     for row in awDict:
         rowList = []
-        print(row)
         for i, col in enumerate(awDict[row]):
             rowList.append(awDict[row][col])
         matrixList.append(rowList)
@@ -155,7 +154,5 @@ def transformMatrix(awDict):
     return awNumpyMatrix
 
 # Testing the Functions
-makematrix(allwords, articlewords)
-awMatrix = transformMatrix(wordInArt)
-print(articletitles)
-print("end")
+#makematrix(allwords, articlewords)
+#awMatrix = transformMatrix(wordInArt)
