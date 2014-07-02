@@ -138,7 +138,8 @@ def getarticlewords():
 # Note:
 # The wordvec and wordInArt results, will be written as Dict.
 # This way no Information about the Words gets lost.
-def makematrix(allw, articlew):
+def makematrix(allw, articlew, articletitles):
+
     temp_articlew = {}
     for index, value in enumerate(articlew):
         temp_articlew[index] = value
@@ -187,6 +188,7 @@ def makematrix(allw, articlew):
     # We Loop trough trimmedPercent for vector j
     awMatrix = {}
     valueCount = 0
+    popArticleTitles = []
     for article in articlew:
         awMatrix[article] = {}
         valueCount = 0
@@ -202,6 +204,11 @@ def makematrix(allw, articlew):
         # then pop the Artice out of the Dict
         if valueCount == 0:
             awMatrix.pop(article)
+            popArticleTitles.append(article)
+
+    #this makes sure that no articles are tried to pop without an existing index
+    for index in reversed(popArticleTitles):
+        articletitles.pop(index)
 
     # Printing the awMatrix for Debugging Purposes
     print('###########################################')
@@ -246,7 +253,7 @@ def makematrix(allw, articlew):
     file.write(wordInArtText)
     file.close()
 
-    return (wordvec, wordInArt)
+    return (wordvec, wordInArt, articletitles)
 
 
 #########

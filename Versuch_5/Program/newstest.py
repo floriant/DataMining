@@ -23,10 +23,11 @@ allwords, articlewords, articletitles = nf.getarticlewords()
 print "allwords:\n", allwords, "\narticlewords:\n", articlewords, "articletitles:", articletitles
 
 #2.2.2
-result = nf.makematrix(allwords, articlewords)
-wordVec, wordInArt = result
-print "wordVe:\n", wordVec, "\nwordInArt:\n", wordInArt
+result = nf.makematrix(allwords, articlewords, articletitles)
+wordVec, wordInArt, articletitles = result
+print "wordVe:\n", wordVec, "\nwordInArt:\n", wordInArt, "articletitles:\n", articletitles
 
+"""
 #2.2.3
 awMatrix = nf.transformMatrix(wordInArt)
 
@@ -35,3 +36,4 @@ result = nf.nnmf(awMatrix, 7, 10)
 W, H = result
 
 #2.3
+"""
