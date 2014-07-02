@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 import pprint as pp
 import numpy as np
-import math
-
 
 #A and B are of type numpy.matrix
 #returns the summed euclidean distance of the passed matrices
 def cost(A, B):
     #TODO test if the matrices are of same shape
     k = 0
+    """
     print "Matrix A:"
     pp.pprint(A)
-    print '-'*64, "\nMatrix B:"
+    print '-' * 64, "\nMatrix B:"
     pp.pprint(B)
 
-    print '-'*64, "\n", '-'*64
+    print '-' * 64, "\n", '-' * 64
+    """
 
     #create iterators
     iteratorA = A.flat
@@ -25,11 +25,11 @@ def cost(A, B):
             #iterate over all elements in both matrices
             Aij = iteratorA.next()
             Bij = iteratorB.next()
-            k += math.pow(Aij-Bij, 2)
+            k += pow(Aij - Bij, 2)
             #print "Aij=%d | Bij=%d" % (Aij, Bij)
 
     except StopIteration:
-        pass #needed because the iterator does not know if there are more elements coming
+        pass  #needed because the iterator does not know if there are more elements coming
 
     return k
 
@@ -63,7 +63,7 @@ def nnmf(A, m, it):
     W = np.matrix(W)
     print "shape of H: ", H.shape, "\nshape of W: ", W.shape
 
-    #pp.pprint({'H': H, 'W': W})
+    pp.pprint({'H': H, 'W': W})
 
     #step 5:
     while it > 0:
@@ -85,54 +85,71 @@ def nnmf(A, m, it):
         #recalculate
         # Hij = Hij * (W_transposed * A)ij / (W_transposed * W * H)ij
 
-        H_t = H.transpose()
-        W_t = W.transpose()
-
-        eins = np.array(W_t)*np.array(A)
+        eins = W.T * A
         print "shape of eins: ", eins.shape
 
-        zwei = np.array(W_t)*np.array(B)
+        zwei = W.T * W * H
         print "shape of zwei: ", zwei.shape
-        drei = ( eins )/(zwei)
+
+        drei = np.array(eins) / np.array(zwei)
         print "shape of drei: ", drei.shape
-        HArray = np.array(H) * drei
+
+        H_arr = np.array(H) * drei
 
         print "HArray:"
-        pp.pprint(HArray)
+        pp.pprint(H_arr)
 
+        H = np.matrix(H_arr)
+        print "shape of H: ", H.shape, "H:"
+        pp.pprint(H)
 
         #c)
+        #Wij = Wij * (A * H_transposed)ij / (W * H * H_transposed)ij
+
+        nextW = np.array(W) * np.array(A * H.T) / np.array(W * H * H.T)
+
+        W = nextW
+        it -= 1
+        print "current values: (%d more iterations)\n" % it
+        print "W:\n", W, "\nH:\n", H
+        print "-"*64
+
+        pass
 
 
-        it-=1
+    print "r: %d, c: %d" % (r, c)
+    #return {'H': H, 'W': W}
+    return W, H
 
-        break
-
-
-print "r: %d, c: %d" % (r, c)
-return {'H': H, 'W': W}
 
 if __name__ == "__main__":
     #TODO Exercise 2.2.3: check if Matrix contains no row only of zeros
-    A = np.matrix([[1, 2, 3], [0, 0, 2], [7, 0, 1], [2, 0, 0]])
-    B = np.matrix([[0, 1, 2], [2, 0, 0], [1, 0, 2]])
+    A = np.matrix([[1, 2, 3], [0, 0, 2], [2, 0, 1], [2, 0, 0]])
+
+    A *= 1.0
+    result = nnmf(A, 2, 3)
+    W, H = result
+
+    print "W:\n", W
+    print "H:\n", H
 
     #print "k = " + str(cost(A,B))
-    try:
-        nnmf2(A, 2, 4)
+    """try:
+        nnmf(A, 2, 4)
     except Exception, e:
         print "Exception: ", e
         pass
 
-    print "\n", '#'*80, "\n"
+    print "\n", '#' * 80, "\n"
 
+    "" "
     try:
-        nnmf2(A, 2, 4)
+        nnmf(A, 2, 4)
     except Exception, e:
         print "Exception: ", e
         pass
     #print "nnmf result:"
     #pp.pprint(result)
-
+    """
 
     pass

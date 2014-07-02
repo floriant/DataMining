@@ -17,7 +17,6 @@ feedlist = ['http://feeds.reuters.com/reuters/topNews',
 
 
 def scrape_feedlist(load_from_disk=True):
-    import feedparser
 
     def writeToFile(obj, filename):
         f = open(filename, 'w')
@@ -46,6 +45,8 @@ def scrape_feedlist(load_from_disk=True):
         return p
 
     def download_feeds():
+        import feedparser
+
         result = {}
         key = ""
         value = ""
