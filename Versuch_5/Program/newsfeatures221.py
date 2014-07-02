@@ -13,6 +13,7 @@ from nltk.corpus import stopwords
 sw = stopwords.words( 'english' )
 
 
+#Testdata
 """
 allwords=
 { 'aided ':1,'actionfor':1, 'ambitions the ':1,'reboot':1, 'four':2, . . .
@@ -21,6 +22,8 @@ articlewords [0]=
 articletitles=
 [ u 'Obama stokes racial passions,police anger' , u 'Mayors , rabbis arrested in NJ ' , . . .
 """
+
+#Initialise global variables
 allwords= {}
 articlewords = []
 articletitles = []
@@ -40,22 +43,13 @@ def getarticlewords():
     articlewords = []
     articletitles = []    
     
-    #load from disc
+    #load from disc:
     allfeeds = n21.scrape_feedlist()         
-    #reloade from web
+    #reloade from web:
     #allfeeds = n21.scrape_feedlist(False) 
-    #local Test
+    #local Test:
     #allfeeds = { 'War': 'War: tank bomb obama', 'Crisis': 'Crisis: Obama, bank collaps', 'Soccer': 'Soccer: Goal, Win, Ball'}
-    
-    #add words to dicts
-    '''for key, value in allfeeds.items():
-        for item in separatewords(value) :                
-            #print item
-            if item in allwords :
-                allwords[item] = allwords[item] + 1
-            else:
-                allwords[item] = 1;
-    '''            
+              
     #add titles and words
     for key, value in allfeeds.items():
         articletitles.append(key)
