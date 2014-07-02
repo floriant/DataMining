@@ -130,6 +130,8 @@ def makematrix(allw, articlew):
 #
 # Params:
 # awDict - Representation of the wordInArt Dict
+#
+# Returns the Article/Word Matrix as numpy.matrix Object
 def transformMatrix(awDict):
     matrixList = []
     # Iterating rough awDict and Converting Data into a nested List
@@ -146,6 +148,9 @@ def transformMatrix(awDict):
     print('###########################################')
     print(awNumpyMatrix)
 
+    return awNumpyMatrix
+
+# Testing the Functions
 makematrix(allwords, articlewords)
-transformMatrix(wordInArt)
+awMatrix = transformMatrix(wordInArt)
 print("end")
