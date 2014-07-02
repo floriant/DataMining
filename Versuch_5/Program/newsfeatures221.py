@@ -67,7 +67,8 @@ def getarticlewords():
             else:
                 words[item] = 1;
         articlewords.append(words)
-    
+
+    return (allwords, articlewords, articletitles)
         
 if __name__ == "__main__":
     getarticlewords()
