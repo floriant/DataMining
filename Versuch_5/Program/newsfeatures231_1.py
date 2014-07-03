@@ -394,7 +394,10 @@ def nnmf(A, m, it):
 #########    
     
 def showfeatures(W,H,titles,wordvec) :
-    siximportant = []
+    
+    #Merkmale ####################################
+    sixImpWords = []
+    threeImpArt = []
     rows, columns = H.shape
     #print H[5,5]
     #print rows
@@ -416,9 +419,38 @@ def showfeatures(W,H,titles,wordvec) :
         for y in range(6) :
             sixW.append(sortword[y][1])
         #pp.pprint(sixW)        
-        siximportant.append(sixW)
+        sixImpWords.append(sixW)        
+    #pp.pprint(sixImpWords)
         
-    #pp.pprint(siximportant)
     
+    #Important articles ###########################
+    sixImpWords = []
+    rows, columns = W.shape
+    print W[5,5]
+    print 'rows'
+    print rows
+    print 'Columns'
+    print columns
+    print 'Title: '
+    print len(titles)
+    for i in range(columns) :
+        artlist = []
+        sortart = []
+        ###########################################
+        ###### TODO Range stimmt nicht überein ####
+        ###########################################
+        for j in range(rows) :
+        #for j in range(1) :
+            artlist.append([W[j,i],titles[j]])
+        #pp.pprint(artlist)
+        #pp.pprint(sorted(artlist, reverse=True))
+        sortart = sorted(artlist, reverse=True)
+        #pp.pprint(sortart)
+        threArt = []
+        for y in range(3) :
+            threArt.append(sortart[y][1])
+        #pp.pprint(sixW)        
+        threeImpArt.append(threArt)
+        
 
-    return siximportant
+    return sixImpWords, threeImpArt
