@@ -194,7 +194,6 @@ def makematrix(allw, articlew, articletitles):
         awMatrix[article] = {}
         valueCount = 0
         for wordAW in trimmedPercent:
-            wordTrashhold = wordAW
             if wordAW in articlew[article]:
                 awMatrix[article][wordAW] = articlew[article][wordAW]
                 valueCount += 1
@@ -403,57 +402,32 @@ def showfeatures(W,H,titles,wordvec) :
     sixImpWords = []
     threeImpArt = []
     rows, columns = H.shape
-    print H.shape
-    print len(wordvec)
-    #print H[5,5]
-    #print rows
-    #print len(wordVec)
     for i in range(rows) :
         wordlist = []
         sortword = []
-        ###########################################
-        ###### TODO Range stimmt nicht überein ####
-        ###########################################
         for j in range(len(wordvec)) :
         #for j in range(columns) :
-            if j > 329 :
-                print H[i,j]
             wordlist.append([H[i,j],wordvec[j]])
-        #pp.pprint(wordlist)
-        #pp.pprint(sorted(wordlist, reverse=True))
         sortword = sorted(wordlist, reverse=True)
-        #pp.pprint(sortword)
         sixW = []
         for y in range(6) :
-            sixW.append(sortword[y][1])
-        #pp.pprint(sixW)        
+            sixW.append(sortword[y][1])        
         sixImpWords.append(sixW)        
-    #pp.pprint(sixImpWords)
         
     
     #Important articles ###########################
     rows, columns = W.shape
-    #print W[5,5]
-    #print 'rows'
-    #print rows
-    #print 'Columns'
-    #print columns
-    #print 'Title: '
-    #print len(titles)
+
     for i in range(columns) :
         artlist = []
         sortart = []
         for j in range(rows) :
-        #for j in range(1) :
             artlist.append([W[j,i],titles[j]])
-        #pp.pprint(artlist)
-        #pp.pprint(sorted(artlist, reverse=True))
         sortart = sorted(artlist, reverse=True)
-        #pp.pprint(sortart)
+
         threArt = []
         for y in range(3) :
-            threArt.append(sortart[y][1])
-        #pp.pprint(sixW)        
+            threArt.append(sortart[y][1])       
         threeImpArt.append(threArt)
         
 
