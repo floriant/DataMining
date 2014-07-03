@@ -393,7 +393,7 @@ def nnmf(A, m, it):
 # 2.3.1 #
 #########    
     
-def importantM(H, wordVec) :
+def showfeatures(W,H,titles,wordvec) :
     siximportant = []
     rows, columns = H.shape
     #print H[5,5]
@@ -407,7 +407,7 @@ def importantM(H, wordVec) :
         ###########################################
         #for j in range(columns) :
         for j in range(343) :
-            wordlist.append([H[i,j],wordVec[j]])
+            wordlist.append([H[i,j],wordvec[j]])
         #pp.pprint(wordlist)
         #pp.pprint(sorted(wordlist, reverse=True))
         sortword = sorted(wordlist, reverse=True)

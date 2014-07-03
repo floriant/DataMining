@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
+import pprint as pp
+import numpy as np
 
 #import newsfeatures_dummy as nf
-import newsfeatures231_1 as nf
-
-import pprint as pp
+import newsfeatures as nf
 
 
 #2.1
@@ -21,12 +21,12 @@ print "\n", "-" * 64, "\n"
 #TODO use named tuples instead of tuples
 allwords, articlewords, articletitles = nf.getarticlewords()
 
-#print "allwords:\n", allwords, "\narticlewords:\n", articlewords, "articletitles:", articletitles
+print "allwords:\n", allwords, "\narticlewords:\n", articlewords, "articletitles:", articletitles
 
 #2.2.2
 result = nf.makematrix(allwords, articlewords, articletitles)
-wordvec, wordInArt, articletitles = result
-#print "wordVe:\n", wordVec, "\nwordInArt:\n", wordInArt
+wordVec, wordInArt, articletitles = result
+print "wordVe:\n", wordVec, "\nwordInArt:\n", wordInArt
 
 #2.2.3
 awMatrix = nf.transformMatrix(wordInArt)
@@ -34,9 +34,8 @@ awMatrix = nf.transformMatrix(wordInArt)
 #2.2.4
 result = nf.nnmf(awMatrix, 7, 10)
 W, H = result
+
 #2.3
-ImportantM = nf.showfeatures(W,H,articletitles,wordvec)
-pp.pprint(ImportantM)
 """
 ###exampledata
 allwords = {'aided':3, 'actionfor': 3, 'ambitionsthe':2, 'reboot':4, 'four':8, 'accused': 10, 'into': 3, 'racism': 4, 'debate':3}
