@@ -172,15 +172,16 @@ def makematrix(allw, articlew, articletitles):
             trimmedPercent.pop(wordV)
         percentage = 0
 
-    # Debugging output for the two Word Reduction Steps
-    print('###########################################')
-    print('############## >= 4 Check #################')
-    print('###########################################')
-    print(trimmedV)
-    print('###########################################')
-    print('############## > 60% Check ################')
-    print('###########################################')
-    print(trimmedPercent)
+    if debug:
+        # Debugging output for the two Word Reduction Steps
+        print('###########################################')
+        print('############## >= 4 Check #################')
+        print('###########################################')
+        print(trimmedV)
+        print('###########################################')
+        print('############## > 60% Check ################')
+        print('###########################################')
+        print(trimmedPercent)
 
     # Create Article/Word Matrix
     #
@@ -210,11 +211,13 @@ def makematrix(allw, articlew, articletitles):
     for index in reversed(popArticleTitles):
         articletitles.pop(index)
 
-    # Printing the awMatrix for Debugging Purposes
-    print('###########################################')
-    print('######## The Article/Word Matrix ##########')
-    print('###########################################')
-    pp.pprint(awMatrix)
+    if debug:
+        # Printing the awMatrix for Debugging Purposes
+        print('###########################################')
+        print('######## The Article/Word Matrix ##########')
+        print('###########################################')
+        #pp.pprint(awMatrix)
+        print(awMatrix)
 
     # Writing the wordvec and wordInArt Variables
     # Note: This should give us an reference, so no Additional Space is wasted in RAM
@@ -230,10 +233,12 @@ def makematrix(allw, articlew, articletitles):
             wordvecText += txtWord + ','
         else:
             wordvecText += txtWord + '\n'
-    print('###########################################')
-    print('###### Text to Write from wordvec #########')
-    print('###########################################')
-    print wordvecText
+
+    if debug:
+        print('###########################################')
+        print('###### Text to Write from wordvec #########')
+        print('###########################################')
+        print wordvecText
 
     # Creating the Data from wordInArt Matrix
     wordInArtText = ''
@@ -243,10 +248,12 @@ def makematrix(allw, articlew, articletitles):
                 wordInArtText += str(awMatrix[txtArticle][txtData]) + ','
             else:
                 wordInArtText += str(awMatrix[txtArticle][txtData]) + '\n'
-    print('###########################################')
-    print('###### Text to Write from wordInArt #######')
-    print('###########################################')
-    print wordInArtText
+
+    if debug:
+        print('###########################################')
+        print('###### Text to Write from wordInArt #######')
+        print('###########################################')
+        print wordInArtText
 
     # Writing to File
     file.write(wordvecText)
@@ -325,6 +332,7 @@ def cost(A, B):
 #     W: Gewichtsmatrix
 # }
 def nnmf(A, m, it):
+    debug = True
     #get row count and column count of A
     r, c = A.shape
 
@@ -337,12 +345,8 @@ def nnmf(A, m, it):
 
     #step 3+4:
     #initialize matrices H and W
-    H = np.matrix(np.random.randint(1, 7, (m, c))) #0 needs to be excluded
-    W = np.matrix(np.random.randint(1, 7, (r, m))) #0 needs to be excluded
-
-    if debug:
-        print "shape of H: ", H.shape, "\nshape of W: ", W.shape
-        pp.pprint({'H': H, 'W': W})
+    H = np.matrix(np.random.randint(0, 5, (m, c))) #0 needs to be excluded
+    W = np.matrix(np.random.randint(0, 5, (r, m))) #0 needs to be excluded
 
     #step 5:
     while it > 0:
@@ -351,7 +355,7 @@ def nnmf(A, m, it):
         B = W * H
         k = cost(A, B)
 
-        if not debug:
+        if debug:
             pp.pprint({'A': A, 'B': B})
             print "cost: %d" % k
 
@@ -364,22 +368,24 @@ def nnmf(A, m, it):
         temp1 = np.array(W.T * A)
         temp2 = np.array(W.T * W * H)
         H = np.matrix( np.array(H) * np.true_divide(temp1, temp2) ) #normal divide floors the results
-
-        if not debug:
-            print "shape of H: ", H.shape, "H:"
-            pp.pprint(H)
+        if debug:
+            pp.pprint({'H': H})
 
         #c) recalculate W
         #Wij = Wij * (A * H_transposed)ij / (W * H * H_transposed)ij
         nextW = np.array(W) * np.true_divide(np.array(A * H.T), np.array(W * H * H.T)) #normal divide floors the results
         W = np.matrix( nextW )
-
+        if debug:
+            pp.pprint({'W': W})
 
         it -= 1
-        if not debug:
-            print "current values: (%d more iterations)\n" % it
-            print "W:\n", W, "\nH:\n", H
+        if debug:
+            print "current values with cost of %.3f: (%d more iterations)" % (k, it)
+            pp.pprint({'W': W, 'H': H})
+            print "result: cost=%.3f || %d more iterations" % (k, it)
             print "-"*64
+
+
 
     #return {'H': H, 'W': W}
     return W, H
