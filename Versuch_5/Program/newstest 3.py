@@ -35,8 +35,20 @@ awMatrix = nf.transformMatrix(wordInArt)
 result = nf.nnmf(awMatrix, 7, 10)
 W, H = result
 #2.3
-ImportantM = nf.showfeatures(W,H,articletitles,wordvec)
-pp.pprint(ImportantM)
+result = nf.showfeatures(W,H,articletitles,wordvec)
+featwords, imparticles = result
+print '\n' + '#' * 50
+print '6 most important words per feature:'
+pp.pprint(featwords)
+print '\n' + '#' * 50
+print '3 most important articles per feature:'
+pp.pprint(imparticles)
+
+for feat in featwords :
+    print 'Feature:'
+    print feat
+    
+    
 """
 ###exampledata
 allwords = {'aided':3, 'actionfor': 3, 'ambitionsthe':2, 'reboot':4, 'four':8, 'accused': 10, 'into': 3, 'racism': 4, 'debate':3}

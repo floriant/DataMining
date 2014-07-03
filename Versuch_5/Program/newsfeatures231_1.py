@@ -399,7 +399,7 @@ def showfeatures(W,H,titles,wordvec) :
     sixImpWords = []
     threeImpArt = []
     rows, columns = H.shape
-    #print H[5,5]
+    print H[5,5]
     #print rows
     #print len(wordVec)
     for i in range(rows) :
@@ -424,15 +424,14 @@ def showfeatures(W,H,titles,wordvec) :
         
     
     #Important articles ###########################
-    sixImpWords = []
     rows, columns = W.shape
-    print W[5,5]
-    print 'rows'
-    print rows
-    print 'Columns'
-    print columns
-    print 'Title: '
-    print len(titles)
+    #print W[5,5]
+    #print 'rows'
+    #print rows
+    #print 'Columns'
+    #print columns
+    #print 'Title: '
+    #print len(titles)
     for i in range(columns) :
         artlist = []
         sortart = []

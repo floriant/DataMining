@@ -4,7 +4,7 @@ import numpy as np
 
 
 #set to false to suppress output
-debug = True
+debug = False
 
 
 feedlist = ['http://feeds.reuters.com/reuters/topNews',
@@ -63,7 +63,7 @@ def scrape_feedlist(load_from_disk=True):
 
             for e in f.entries:
                 key = stripHTML(e.title)
-                value = key + " " + stripHTML(e.description)
+                value = key + " " + stripHTML(e.description)              
                 print key + ': ' + value
                 result[key] = value
 
@@ -146,8 +146,8 @@ def makematrix(allw, articlew, articletitles):
 
     articlew = temp_articlew
 
-    # Declaring Global Vars
-    wordvec = {}
+    # Declaring Vars
+    wordvec = []
     wordInArt = {}
 
     # Removing words that have a overall Wordcount >= 4
@@ -221,7 +221,7 @@ def makematrix(allw, articlew, articletitles):
 
     # Writing the wordvec and wordInArt Variables
     # Note: This should give us an reference, so no Additional Space is wasted in RAM
-    wordvec = trimmedPercent
+    # nicht tun! wordvec = trimmedPercent
     wordInArt = awMatrix
 
     # Creating Text File with Matrix
@@ -231,6 +231,7 @@ def makematrix(allw, articlew, articletitles):
     for i, txtWord in enumerate(trimmedPercent):
         if i != len(trimmedPercent)-1:
             wordvecText += txtWord + ','
+            wordvec.append(txtWord)
         else:
             wordvecText += txtWord + '\n'
 
@@ -259,6 +260,7 @@ def makematrix(allw, articlew, articletitles):
     file.write(wordvecText)
     file.write(wordInArtText)
     file.close()
+    
 
     return (wordvec, wordInArt, articletitles)
 
@@ -279,7 +281,8 @@ def transformMatrix(awDict):
     # Iterating rough awDict and Converting Data into a nested List
     for row in awDict:
         rowList = []
-        print(row)
+        if debug :
+            print(row)
         for i, col in enumerate(awDict[row]):
             rowList.append(awDict[row][col])
         matrixList.append(rowList)
@@ -332,7 +335,7 @@ def cost(A, B):
 #     W: Gewichtsmatrix
 # }
 def nnmf(A, m, it):
-    debug = True
+    #debug = True
     #get row count and column count of A
     r, c = A.shape
 
@@ -389,3 +392,69 @@ def nnmf(A, m, it):
 
     #return {'H': H, 'W': W}
     return W, H
+    
+#########
+# 2.3.1 #
+#########    
+    
+def showfeatures(W,H,titles,wordvec) :
+    
+    #Merkmale ####################################
+    sixImpWords = []
+    threeImpArt = []
+    rows, columns = H.shape
+    print H.shape
+    print len(wordvec)
+    #print H[5,5]
+    #print rows
+    #print len(wordVec)
+    for i in range(rows) :
+        wordlist = []
+        sortword = []
+        ###########################################
+        ###### TODO Range stimmt nicht überein ####
+        ###########################################
+        for j in range(len(wordvec)) :
+        #for j in range(columns) :
+            if j > 329 :
+                print H[i,j]
+            wordlist.append([H[i,j],wordvec[j]])
+        #pp.pprint(wordlist)
+        #pp.pprint(sorted(wordlist, reverse=True))
+        sortword = sorted(wordlist, reverse=True)
+        #pp.pprint(sortword)
+        sixW = []
+        for y in range(6) :
+            sixW.append(sortword[y][1])
+        #pp.pprint(sixW)        
+        sixImpWords.append(sixW)        
+    #pp.pprint(sixImpWords)
+        
+    
+    #Important articles ###########################
+    rows, columns = W.shape
+    #print W[5,5]
+    #print 'rows'
+    #print rows
+    #print 'Columns'
+    #print columns
+    #print 'Title: '
+    #print len(titles)
+    for i in range(columns) :
+        artlist = []
+        sortart = []
+        for j in range(rows) :
+        #for j in range(1) :
+            artlist.append([W[j,i],titles[j]])
+        #pp.pprint(artlist)
+        #pp.pprint(sorted(artlist, reverse=True))
+        sortart = sorted(artlist, reverse=True)
+        #pp.pprint(sortart)
+        threArt = []
+        for y in range(3) :
+            threArt.append(sortart[y][1])
+        #pp.pprint(sixW)        
+        threeImpArt.append(threArt)
+        
+
+    return sixImpWords, threeImpArt
