@@ -11,6 +11,7 @@ from numpy import average,sort,trace,argsort
 from numpy.linalg import svd,eigh
 from numpy import concatenate, reshape
 from math import sqrt
+import scipy.spatial.distance as ssd
 
 import tkFileDialog
 
@@ -39,15 +40,15 @@ def generateListOfImages(ListOfTrainFiles) :
         im = Image.open(filename)
         imgfiles.append(im)
     return imgfiles
-    
+
+def imgToVec(img) :
+    vec = asfarray(img)
+    #norm
+    vec = vec / vec.max()
+    vec = vec.flatten()
+    return vec
+
 def convertImgListToNumpyData(imgList) :
-    
-    def imgToVec(img) :
-        vec = asfarray(img)
-        #norm
-        vec = vec / vec.max()
-        vec = vec.flatten()
-        return vec
     
     imgArray = []
     for img in imgList :
@@ -129,8 +130,27 @@ if __name__ == "__main__" :
 #######
     trainedFaces = []
     for face in NormedArrayOfFaces :
-        trainedFaces.append(dot(face, asfarray(eigenfaces).T)) 
+        trainedFaces.append(dot(face, asfarray(eigenfaces).T))
+    print trainedFaces
 #####
 #3.3#
 #####
-   
+    testImage = Image.open("../res/FaceRecogBilder/test/1-1.png")
+    testImageArray = imgToVec(testImage)
+    print testImageArray
+    NormedTestFace = testImageArray - average(ArrayOfFaces)
+    print NormedTestFace
+    recTest = dot(NormedTestFace,asfarray(eigenfaces).T)
+    print recTest
+    mindist = 9999
+    pos = -1
+    for i,trainface in enumerate(trainedFaces):
+        dist = ssd.euclidean(recTest, trainface)
+        print i
+        print dist
+        if dist < mindist:
+            mindist = dist
+            pos = i
+    print "-------------------------"
+    print mindist
+    print pos
