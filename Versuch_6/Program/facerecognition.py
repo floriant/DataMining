@@ -12,6 +12,7 @@ from numpy.linalg import svd,eigh
 from numpy import concatenate, reshape
 from math import sqrt
 import scipy.spatial.distance as ssd
+import numpy as np
 
 import tkFileDialog
 
@@ -79,9 +80,7 @@ def calculateEigenfaces(adjfaces,width,height,K=6) :
     #    if j in largest :
     #        print i
     #        print eigVec[i]
-        
-    
-    
+
         
 ####################################################################################
 #Start of main programm
@@ -100,7 +99,7 @@ if __name__ == "__main__" :
     
     A321 = False
     A322 = True
-    K = 6
+    K = 2
     
     listOfTrainFiles = parseDirectory(TrainDir, Extension)
     
@@ -135,13 +134,21 @@ if __name__ == "__main__" :
 #####
 #3.3#
 #####
-    testImage = Image.open("../res/FaceRecogBilder/test/1-1.png")
+    #getting test image
+    testImage = Image.open("../res/FaceRecogBilder/test/5-1.png")
     testImageArray = imgToVec(testImage)
     print testImageArray
+
+    #getting average test image
     NormedTestFace = testImageArray - average(ArrayOfFaces)
     print NormedTestFace
+
+    #average test immage dotted with eigenfaces
     recTest = dot(NormedTestFace,asfarray(eigenfaces).T)
+    print "recTest:"
     print recTest
+
+    # initializing recognition
     mindist = 9999
     pos = -1
     for i,trainface in enumerate(trainedFaces):
@@ -152,5 +159,18 @@ if __name__ == "__main__" :
             mindist = dist
             pos = i
     print "-------------------------"
+
+    #getting mindist and position of image, position is image to be shown
     print mindist
     print pos
+
+    #show images
+    print "TEST IMAGE:"
+    print testImage
+    testImage.show()
+    print "RECOGNIZED IMAGE"
+    print imgList[pos]
+    imgList[pos].show()
+
+
+
