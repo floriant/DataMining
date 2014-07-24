@@ -3,18 +3,13 @@ from os import listdir
 
 from PIL import Image
 
-import pprint as pp
-import heapq as hq
-
 from numpy import asfarray, dot, argmin, zeros
 from numpy import average, sort, trace, argsort
 from numpy.linalg import svd, eigh
-from numpy import concatenate, reshape
-from math import sqrt
 import scipy.spatial.distance as ssd
-import numpy as np
 
 import tkFileDialog
+from sympy.functions.combinatorial.numbers import bernoulli
 
 
 def parseDirectory(directoryName, extension):
@@ -76,22 +71,33 @@ def calculateEigenfaces(adjfaces, width, height, K=6):
     return usub
 
 
+def selectFilesAndFolders(noUserInput=True):
+    if noUserInput:
+        #Choose Directory which contains all training images
+        TrainDir = "../res/FaceRecogBilder/training"
+        #Choose the image which shall be recognized
+        testImageDirAndFilename = "../res/FaceRecogBilder/test/7-1.png"
+    else:
+        #Choose Directory which contains all training images
+        TrainDir=tkFileDialog.askdirectory(title="Choose Directory of training images")
+        #Choose the image which shall be recognized
+        testImageDirAndFilename=tkFileDialog.askopenfilename(title="Choose Image to detect")
+
+    return TrainDir, testImageDirAndFilename
+
+####################################################################################
+#Start of main programm
+#Choose the file extension of the image files
+####################################################################################
 if __name__ == "__main__":
-    ####################################################################################
-    #Start of main programm
-    #Choose Directory which contains all training images
-    #TrainDir=tkFileDialog.askdirectory(title="Choose Directory of training images")
-    TrainDir = "../res/FaceRecogBilder/training"
-    #Choose the file extension of the image files
     Extension = 'png'
-    #Choose the image which shall be recognized
-    #testImageDirAndFilename=tkFileDialog.askopenfilename(title="Choose Image to detect")
-    testImageDirAndFilename = "../res/FaceRecogBilder/test/7-1.png"
-    ####################################################################################
-    # Implement required functionality of the main programm here
 
     #set to True for debug output
     verbose = False
+    #auto-select files
+    noUserInput = True
+
+    TrainDir, testImageDirAndFilename = selectFilesAndFolders(noUserInput)
 
     A321 = False
     K = 5
