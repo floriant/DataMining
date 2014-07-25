@@ -3,13 +3,12 @@ from os import listdir
 
 from PIL import Image
 
-from numpy import asfarray, dot, argmin, zeros
-from numpy import average, sort, trace, argsort
-from numpy.linalg import svd, eigh
+from numpy import asfarray, dot
+from numpy import average, argsort
+from numpy.linalg import eigh
 import scipy.spatial.distance as ssd
 
 import tkFileDialog
-from sympy.functions.combinatorial.numbers import bernoulli
 
 
 def parseDirectory(directoryName, extension):
